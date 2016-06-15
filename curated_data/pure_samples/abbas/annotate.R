@@ -1,0 +1,13 @@
+abbas <- read.table('GSE11103_matrix_pure.txt', sep='\t', header=T)
+names(abbas)
+rownames(abbas) <- abbas$X.Sample_title
+head(abbas)
+biocLite('hgu133a.db')
+library('hgu133a.db')
+Annot <- data.frame(ACCNUM=sapply(contents(hgu133aACCNUM), paste, collapse=', '), SYMBOL=sapply(contents(hgu133aSYMBOL), paste, collapse=", "), DESC=sapply(contents(hgu133aGENENAME), paste, collapse=", "))
+names(Annot)
+head(Annot)
+all <- merge(Annot, abbas, by.x=0, by.y=0, all=T)
+head(all)
+write.table(all, file="abbas.pure.ann.txt", sep='\t')
+write.table(all, file="abbas.pure.ann.csv", sep=',')

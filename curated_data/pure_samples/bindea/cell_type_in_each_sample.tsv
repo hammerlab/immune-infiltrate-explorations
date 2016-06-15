@@ -1,0 +1,68 @@
+	type	subtype	filename	filename_low
+2	dendritic	6hr LPS	A_LW_DC6hLPS_U133A_200503.CEL	a_lw_dc6hlps_u133a_200503.cel
+6	dendritic	6hr LPS	A_SZ_6hLPSDC2_U133A_250603.CEL	a_sz_6hlpsdc2_u133a_250603.cel
+10	dendritic	48hr LPS	A_LW_DC48hLPS_U133A_200503.CEL	a_lw_dc48hlps_u133a_200503.cel
+14	dendritic	48hr LPS	A_SZ_48hLPSDC2_U133A_250603.CEL	a_sz_48hlpsdc2_u133a_250603.cel
+17	dendritic	6hr LPS + HC	A_LW_DC6hLPS_HC_U133A.CEL	a_lw_dc6hlps_hc_u133a.cel
+19	dendritic	6hr LPS + HC	A_SZ_6hLPS_HCDC2_U133A.CEL	a_sz_6hlps_hcdc2_u133a.cel
+21	dendritic	48hr LPS + HC	A_LW_DC48hLPS_HC_U133A.CEL	a_lw_dc48hlps_hc_u133a.cel
+23	dendritic	48hr LPS + HC	A_SZ_48hLPS_HCDC2_U133A.CEL	a_sz_48hlps_hcdc2_u133a.cel
+26	dendritic	Immature	A_LW_imDC_U133A_200503.CEL	a_lw_imdc_u133a_200503.cel
+30	dendritic	Immature	A_SZ_imDC2_U133A_250603.CEL	a_sz_imdc2_u133a_250603.cel
+42	macrophage	contorl	A_LW_macroctrl_U133A_130503.CEL	a_lw_macroctrl_u133a_130503.cel
+46	macrophage	contorl	A_SZ_mac2cont_U133A_240603.CEL	a_sz_mac2cont_u133a_240603.cel
+50	macrophage	LPS	A_LW_macro_LPS_U133A_130503.CEL	a_lw_macro_lps_u133a_130503.cel
+54	macrophage	LPS	A_SZ_mac2LPS_U133A_240603.CEL	a_sz_mac2lps_u133a_240603.cel
+57	macrophage	LPS + HC	A_LW_macro_LPS_HC_U133A.CEL	a_lw_macro_lps_hc_u133a.cel
+59	macrophage	LPS + HC	A_SZ_mac2LPS_HC_U133A.CEL	a_sz_mac2lps_hc_u133a.cel
+62	Tcell	Th1	A_MF_TH1human_U133A_290502.CEL	a_mf_th1human_u133a_290502.cel
+66	Tcell	Th1	A_TS_TC_Th1_U133A_141003.CEL	a_ts_tc_th1_u133a_141003.cel
+70	Tcell	Th2	A_MF_TH2human_U133A_290502.CEL	a_mf_th2human_u133a_290502.cel
+74	Tcell	Th2	A_TS_TC_Th2_U133A_141003.CEL	a_ts_tc_th2_u133a_141003.cel
+98	Tcell	CCR7-	A_MF_CCR7-_U133A_190202.CEL	a_mf_ccr7-_u133a_190202.cel
+102	Tcell	CCR7+	A_MF_CCR7+_U133A_190202.CEL	a_mf_ccr7+_u133a_190202.cel
+124	Mastcell	Contrl	A_MF_ControlMASTCELL_U133A.CEL	a_mf_controlmastcell_u133a.cel
+128	Mastcell	Contrl	A_LW_mastcellctrl_U133A.CEL	a_lw_mastcellctrl_u133a.cel
+132	Mastcell	IgE	A_MF_IgEMASTCELL_U133A.CEL	a_mf_igemastcell_u133a.cel
+136	Mastcell	IgE	A_LW_mastcellIgE_U133A.CEL	a_lw_mastcellige_u133a.cel
+140	Bcell	CD19+	A_TS_RN_CD19+_U133A_130104.CEL	a_ts_rn_cd19+_u133a_130104.cel
+144	Bcell	CD19+	A_TS_2CD19+_U133A_180204.CEL	a_ts_2cd19+_u133a_180204.cel
+148	eosinophils	Control	A_MF_ControlEosinophil.CEL	a_mf_controleosinophil.cel
+152	eosinophils	PMA	A_MF_2hrEosinophils.CEL	a_mf_2hreosinophils.cel
+156	neutrophils	Contrl	A_MF_neutrophils_U133A.CEL	a_mf_neutrophils_u133a.cel
+160	neutrophils	Contrl	A_LW_neutrophil_U133A.CEL	a_lw_neutrophil_u133a.cel
+164	neutrophils	LPS	A_TS_MSNeutroLPS_U133A.CEL	a_ts_msneutrolps_u133a.cel
+0	Tcell	CD8	GSM155229.CEL.gz	
+1	Tcell	CD8	GSM155232.CEL.gz	
+2	Tcell	CD8	GSM155234.CEL.gz	
+3	Tcell	CD8	GSM155236.CEL.gz	
+4	Tcell	CD8	GSM155238.CEL.gz	
+5	SW480 cancer cells		GSM21712.CEL.gz	
+6	SW480 cancer cells		GSM21713.CEL.gz	
+7	SW480 cancer cells		GSM21714.CEL.gz	
+8	NK cells	CD56dim	MHH0210HG_U133A.CEL	
+9	NK cells	CD56dim	MHH0248HG-U133A.CEL	
+10	NK cells	CD56bright	MHH0211HG_U133A.CEL	
+11	NK cells	CD56bright	MHH0249HG-U133A.CEL	
+12	Normal mucosa	Colon	CSS_COLON_N_1.CEL	
+13	Normal mucosa	Colon	CSS_COLON_N_10.CEL	
+14	Normal mucosa	Colon	CSS_COLON_N_11.CEL	
+15	Normal mucosa	Colon	CSS_COLON_N_12.CEL	
+16	Normal mucosa	Colon	CSS_COLON_N_13.CEL	
+17	Normal mucosa	Colon	CSS_COLON_N_14.CEL	
+18	Normal mucosa	Colon	CSS_COLON_N_15.CEL	
+19	Normal mucosa	Colon	CSS_COLON_N_16.CEL	
+20	Normal mucosa	Colon	CSS_COLON_N_17.CEL	
+21	Normal mucosa	Colon	CSS_COLON_N_18.CEL	
+22	Normal mucosa	Colon	CSS_COLON_N_19.CEL	
+23	Normal mucosa	Colon	CSS_COLON_N_2.CEL	
+24	Normal mucosa	Colon	CSS_COLON_N_20.CEL	
+25	Normal mucosa	Colon	CSS_COLON_N_21.CEL	
+26	Normal mucosa	Colon	CSS_COLON_N_22.CEL	
+27	Normal mucosa	Colon	CSS_COLON_N_23.CEL	
+28	Normal mucosa	Colon	CSS_COLON_N_3.CEL	
+29	Normal mucosa	Colon	CSS_COLON_N_4.CEL	
+30	Normal mucosa	Colon	CSS_COLON_N_5.CEL	
+31	Normal mucosa	Colon	CSS_COLON_N_6.CEL	
+32	Normal mucosa	Colon	CSS_COLON_N_7.CEL	
+33	Normal mucosa	Colon	CSS_COLON_N_9.CEL	
