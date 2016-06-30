@@ -362,6 +362,7 @@ Since _LM22_ has nice differentiation between cell types, it is interesting to e
 
 * B cells memory, naive
 * CD4 T cells naive, memory resting
+
 When one of each pair of similar cell types is removed, the condition number decreases from 11.38 to 9.30, meaning the resulting matrix is considerably better at deconvolving the more distinct set of cell types. 
 
 ---
