@@ -1,0 +1,10 @@
+>===================Settings====================
+>Mixture file: test_mixtures/reference_profile_mixtures.txt
+>Signature matrix file: test_mixtures/newclasses.LM22-ref-sample.bm.K999.0.txt
+>===============================================
+>R version 3.2.3 (2015-12-10)
+>==================CIBERSORT====================
+Column	B cells	Myeloblasts	T cells	P-value	Pearson Correlation	RMSE	
+0	0.24432874299681628	0	0.7556712570031837	0.0	0.8592354844911518	0.5193926553479266
+1	0.2443313304767241	0	0.7556686695232759	0.0	0.8591692889827296	0.5194898272817042
+2	0.2649796435129828	0	0.7350203564870171	0.0	0.8594135468245341	0.5200986724649895
