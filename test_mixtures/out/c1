@@ -1,0 +1,10 @@
+>===================Settings====================
+>Mixture file: test_mixtures/reference_profile_mixtures.txt
+>Signature matrix file: LM22.txt
+>===============================================
+>R version 3.2.3 (2015-12-10)
+>==================CIBERSORT====================
+Column	B cells naive	B cells memory	Plasma cells	T cells CD8	T cells CD4 naive	T cells CD4 memory resting	T cells CD4 memory activated	T cells follicular helper	T cells regulatory (Tregs)	T cells gamma delta	NK cells resting	NK cells activated	Monocytes	Macrophages M0	Macrophages M1	Macrophages M2	Dendritic cells resting	Dendritic cells activated	Mast cells resting	Mast cells activated	Eosinophils	Neutrophils	P-value	Pearson Correlation	RMSE	
+0	0.2489365250174408	4.1487571084434854E-4	0	0	0	2.5561237951664115E-4	0	0	0.7496957001349493	0	0	5.413642120026568E-4	0	0	0	0	0	4.3758241656544205E-5	0	4.8156372079002616E-5	4.8310619909241564E-5	0	0.0	0.9997210861167507	0.27382449360008415
+1	0.2484266016386884	7.48558474928493E-4	0	8.488317494992416E-5	0	3.763240466066092E-4	0	9.159720633920193E-5	0.7495020867485671	0	0	4.502002182220476E-4	0	0	0	0	0	5.9520230748637983E-5	0	1.8201673802759505E-4	2.5991619622777324E-5	5.221990329926808E-5	0.0	0.999717828543099	0.27396401353859595
+2	0.23668145039651972	0.03792394687191454	0	0	3.5393600479517663E-4	0.0014718876432633374	0	3.6355762561905583E-4	0.7177437303538567	6.74105024693612E-4	0	0.003065715553252793	0	0	4.657179169431425E-4	0	0	0	2.85631548580484E-4	9.70321060561407E-4	0	0	0.0	0.9978847915903516	0.2910734019783019
