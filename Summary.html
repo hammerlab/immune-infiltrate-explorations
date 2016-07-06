@@ -212,7 +212,7 @@ $( document ).ready(function(){
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h1><p><p><div class="lev1"><a href="#Overview"><span class="toc-item-num">1&nbsp;&nbsp;</span>Overview</a></div><div class="lev1"><a href="#Examination-of-raw-data:-there-is-a-lot-of-variance-that-current-methods-do-not-capture"><span class="toc-item-num">2&nbsp;&nbsp;</span>Examination of raw data: there is a lot of variance that current methods do not capture</a></div><div class="lev2"><a href="#Among-samples-of-one-cell-type:-how-much-variation-is-there-in-genes-of-interest?-Is-variance-motivated?"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Among samples of one cell type: how much variation is there in genes of interest? Is variance motivated?</a></div><div class="lev2"><a href="#What-do-selected-vs-unselected-genes-look-like-in-terms-of-their-expressions-across-samples-in-a-cell-type,-across-all-samples-in-all-cell-types-(sort),-across-average-expression-in-all-cell-types?"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>What do selected vs unselected genes look like in terms of their expressions across samples in a cell type, across all samples in all cell types (sort), across average expression in all cell types?</a></div><div class="lev1"><a href="#Examination-of-reference-profile-selection-output"><span class="toc-item-num">3&nbsp;&nbsp;</span>Examination of reference profile selection output</a></div><div class="lev2"><a href="#Raw-vs-processed-reference-samples"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Raw vs processed reference samples</a></div><div class="lev2"><a href="#Differences-between-methods"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Differences between methods</a></div><div class="lev3"><a href="#What-is-being-included"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>What is being included</a></div><div class="lev3"><a href="#What-is-the-discriminatory-ability?"><span class="toc-item-num">3.2.2&nbsp;&nbsp;</span>What is the discriminatory ability?</a></div><div class="lev1"><a href="#Deconvolution-in-progressively-more-complicated-synthetic-mixtures"><span class="toc-item-num">4&nbsp;&nbsp;</span>Deconvolution in progressively more complicated synthetic mixtures</a></div><div class="lev2"><a href="#Experiment-1:-reproducing-result"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Experiment 1: reproducing result</a></div><div class="lev2"><a href="#Experiment-2:-simple-deconvolution"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Experiment 2: simple deconvolution</a></div><div class="lev2"><a href="#Experiment-3:-pathological-case-of-very-similar-cell-types"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Experiment 3: pathological case of very similar cell types</a></div><div class="lev1"><a href="#Conclusions"><span class="toc-item-num">5&nbsp;&nbsp;</span>Conclusions</a></div><div class="lev1"><a href="#Next-steps"><span class="toc-item-num">6&nbsp;&nbsp;</span>Next steps</a></div><div class="lev2"><a href="#Does-RNAseq-input-data-behave-differently-from-microarray?-How-does-quantification-method-determine-results?"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Does RNAseq input data behave differently from microarray? How does quantification method determine results?</a></div><div class="lev2"><a href="#Variance"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>Variance</a></div><div class="lev2"><a href="#Profile-extraction"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>Profile extraction</a></div><div class="lev2"><a href="#Deconvolution"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>Deconvolution</a></div><div class="lev2"><a href="#Build-a-proof-of-concept-multi-level-model,-perhaps-with-variance-incorporated"><span class="toc-item-num">6.5&nbsp;&nbsp;</span>Build a proof of concept multi-level model, perhaps with variance incorporated</a></div></p>
+<h1 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h1><p><p><div class="lev1"><a href="#Overview"><span class="toc-item-num">1&nbsp;&nbsp;</span>Overview</a></div><div class="lev1"><a href="#Examination-of-raw-data:-there-is-a-lot-of-variance-that-current-methods-do-not-capture"><span class="toc-item-num">2&nbsp;&nbsp;</span>Examination of raw data: there is a lot of variance that current methods do not capture</a></div><div class="lev2"><a href="#Among-samples-of-one-cell-type:-how-much-variation-is-there-in-genes-of-interest?-Is-variance-motivated?"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Among samples of one cell type: how much variation is there in genes of interest? Is variance motivated?</a></div><div class="lev2"><a href="#What-do-selected-vs-unselected-genes-look-like-in-terms-of-their-expressions-across-samples-in-a-cell-type,-across-all-samples-in-all-cell-types-(sort),-across-average-expression-in-all-cell-types?"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>What do selected vs unselected genes look like in terms of their expressions across samples in a cell type, across all samples in all cell types (sort), across average expression in all cell types?</a></div><div class="lev1"><a href="#Examination-of-reference-profile-selection-output"><span class="toc-item-num">3&nbsp;&nbsp;</span>Examination of reference profile selection output</a></div><div class="lev2"><a href="#Raw-vs-processed-reference-samples"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>Raw vs processed reference samples</a></div><div class="lev2"><a href="#Differences-between-methods"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>Differences between methods</a></div><div class="lev3"><a href="#What-is-being-included"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>What is being included</a></div><div class="lev3"><a href="#What-is-the-discriminatory-ability?"><span class="toc-item-num">3.2.2&nbsp;&nbsp;</span>What is the discriminatory ability?</a></div><div class="lev1"><a href="#Deconvolution-in-progressively-more-complicated-synthetic-mixtures"><span class="toc-item-num">4&nbsp;&nbsp;</span>Deconvolution in progressively more complicated synthetic mixtures</a></div><div class="lev2"><a href="#Experiment-1:-reproducing-result"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>Experiment 1: reproducing result</a></div><div class="lev2"><a href="#Experiment-2:-simple-deconvolution"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Experiment 2: simple deconvolution</a></div><div class="lev2"><a href="#Experiment-3:-pathological-case-of-very-similar-cell-types"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Experiment 3: pathological case of very similar cell types</a></div><div class="lev2"><a href="#Experiment-4:-superclass-classification"><span class="toc-item-num">4.4&nbsp;&nbsp;</span>Experiment 4: superclass classification</a></div><div class="lev1"><a href="#Conclusions"><span class="toc-item-num">5&nbsp;&nbsp;</span>Conclusions</a></div><div class="lev1"><a href="#Next-steps"><span class="toc-item-num">6&nbsp;&nbsp;</span>Next steps</a></div><div class="lev2"><a href="#Does-RNAseq-input-data-behave-differently-from-microarray?-How-does-quantification-method-determine-results?"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>Does RNAseq input data behave differently from microarray? How does quantification method determine results?</a></div><div class="lev2"><a href="#Variance"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>Variance</a></div><div class="lev2"><a href="#Deconvolution"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>Deconvolution</a></div><div class="lev2"><a href="#Build-a-proof-of-concept-multi-level-model,-perhaps-with-variance-incorporated"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>Build a proof of concept multi-level model, perhaps with variance incorporated</a></div></p>
 
 </div>
 </div>
@@ -292,6 +292,15 @@ subsets from tissue expression profiles. Nature methods. Nature Publishing Group
 <li>B cells memory, naive</li>
 <li>CD4 T cells naive, memory resting</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Deconvolution-in-progressively-more-complicated-synthetic-mixtures">Deconvolution in progressively more complicated synthetic mixtures<a class="anchor-link" href="#Deconvolution-in-progressively-more-complicated-synthetic-mixtures">&#182;</a></h1><p>We expect there to be several pathological cases:</p>
 <ul>
 <li>Distinguishing between two very similar immune cell subtypes</li>
@@ -299,6 +308,15 @@ subsets from tissue expression profiles. Nature methods. Nature Publishing Group
 </ul>
 <p>It will be interesting to see what the diagnostics tell us in both cases.</p>
 <h2 id="Experiment-1:-reproducing-result">Experiment 1: reproducing result<a class="anchor-link" href="#Experiment-1:-reproducing-result">&#182;</a></h2><p>First, using Cibersort, I reproduced deconvolution of example mixtures that come with Cibersort. I got $R^2 > 0.99$. <a href="Evaluating%20the%20deconvolution%20once%20we%20have%20a%20basis%20matrix.ipynb#Mixtures-that-come-with-Cibersort">(notebook)</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Experiment-2:-simple-deconvolution">Experiment 2: simple deconvolution<a class="anchor-link" href="#Experiment-2:-simple-deconvolution">&#182;</a></h2><p>Next, I deconvolved weighted sums of two quite different columns: naive B cells and Tregs. I either added no noise, or added one of two types of noise:</p>
 <ul>
 <li>"simple" noise: Gaussian error added to each gene after the weighted sum</li>
@@ -307,74 +325,120 @@ subsets from tissue expression profiles. Nature methods. Nature Publishing Group
 <p>Results <a href="Evaluating%20the%20deconvolution%20once%20we%20have%20a%20basis%20matrix.ipynb#Simple-mixtures">(notebook)</a>:</p>
 <ul>
 <li>Deconvolving reference profiles with no noise, with simple noise, and with complex noise:<ul>
-<li>$R^2 = .73, .73, .81$ respectively. Why are these so low?</li>
-<li>Noise does not affect absolute error much. Here is the absolute deconvolution error in the three noise conditions; as you can tell, the deconvolution sucks!
+<li>$R^2 = 1.0, 1.0, .99$, respectively. At most 3% error in the cell types we care about.</li>
+<li>Noise has a small impact. Here is the absolute deconvolution error in the three noise conditions: 
 <pre><code>B cells naive    T cells regulatory (Tregs)
-0    -0.247348    0.246492
-1    -0.247433    0.246207
-2    -0.210294    0.198790</code></pre>
+0    -0.001063    -0.000304
+1    -0.001573    -0.000498
+2    -0.013319    -0.032256</code></pre>
 </li>
-<li>However, as expected, noise makes Cibersort less certain that other cell types are <em>not</em> there -- it started hallucinating positive fractions for other cell types. In the no-noise and simple-noise conditions, the highest hallucinated abundance is 0.06%; in the complex-noise condition, the highest hallucinated abundance is 0.4%.</li>
+<li>However, as expected, noise makes Cibersort less certain that other cell types are <em>not</em> there -- it started hallucinating positive fractions for other cell types. In the no-noise and simple-noise conditions, the highest hallucinated abundance is 0.07%; in the complex-noise condition, the highest hallucinated abundance is 3.5%.</li>
 </ul>
 </li>
 <li>Deconvolving raw samples with with no noise, with simple noise, and with complex noise:<ul>
-<li>$R^2 = .93, .93, .95$, respectively.</li>
-<li>The actual cell types have poor deconvolution consistently (5% to 14% off), especially Tregs because there are many similar cell types. Here are the absolute deconvolution errors in the three noise conditions: 
+<li>$R^2 = .98, .97, .98$, respectively.</li>
+<li>B cells naive have poor deconvolution consistently: 9-11% off. Tregs have low error (1-3%). Here are the absolute deconvolution errors in the three noise conditions: 
 <pre><code>B cells naive    T cells regulatory (Tregs)
-0    -0.056918    0.139621
-1    -0.055392    0.139150
-2    -0.055109    0.110350</code></pre>
+0    -0.106105    -0.010682
+1    -0.107512    -0.011141
+2    -0.089686    -0.031552</code></pre>
 </li>
-<li>Error in the incorrect columns (i.e. hallucinating the presence of other cell types) is relatively consistent and low (maximum is between 4% and 5%) regardless of noise condition.</li>
-<li>All P values are still 0 -- despite the poor deconvolution.</li>
+<li>B cells memory (very similar cell type) is being hallucinated in at 2% error. 4% error rate for T cells follicular memory -- meaning a lot of hallicunation of that for some reason (maybe similar to Treg?). Also consistent regardless of noise.</li>
 </ul>
 </li>
 </ul>
+<p><strong>In first experiment, we have pretty good deconvolution throughout w/ p-values = 0. But in second experiment, naive B cells are consistently 10% off, but Cibersort still says p-value = 0. $R^2$ is still high, so maybe this is not bad.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Experiment-3:-pathological-case-of-very-similar-cell-types">Experiment 3: pathological case of very similar cell types<a class="anchor-link" href="#Experiment-3:-pathological-case-of-very-similar-cell-types">&#182;</a></h2><p>I deconvolved weighted sums of two very similar cell types: naive and memory B cells. Again, I used reference profiles and raw cell lines with three noise conditions, as above.</p>
 <p>Results <a href="Evaluating%20the%20deconvolution%20once%20we%20have%20a%20basis%20matrix.ipynb#Give-Cibersort-a-hard-time">(notebook)</a>:</p>
 <ul>
-<li>Reference profiles:<ul>
-<li>$R^2 = 0.99, 0.99, 0.836$. Noise kills.</li>
+<li>Reference profiles: perfect deconvolution.<ul>
+<li>$R^2 = 1.0, 1.0, 1.0$.</li>
 <li>Absolute error in the three noise conditions:
 <pre><code>B cells naive    B cells memory
-0    -0.014456    0.012664
-1    -0.014645    0.012406
-2    -0.205990    0.177900</code></pre>
+0    0.000715    -0.001720
+1    0.000361    -0.001691
+2    -0.007141    0.000923</code></pre>
 </li>
-<li>P values all still 0.</li>
+<li>P values all 0.</li>
 </ul>
 </li>
-<li>Raw cell lines:<ul>
-<li>$R^2 = 0.943, 0.946, 0.932$. As expected, lower than for reference profiles. But why is noise not killing?</li>
+<li>Raw cell lines: bad deconvolution:<ul>
+<li>$R^2 = 0.97, 0.97, 0.98$. As expected, lower than for reference profiles. Noise helps slightly (why?)</li>
 <li>Absolute error in the three noise conditions:
 <pre><code>B cells naive    B cells memory
-0    -0.140522    0.073179
-1    -0.137888    0.069617
-2    -0.156374    0.072649</code></pre>
+0    -0.106118    0.035980
+1    -0.104301    0.036218
+2    -0.090453    0.005164</code></pre>
 </li>
 <li>This deconvolution is consistently bad, yet $R^2$ is high and $p=0$ always. In the 50-50 mixture, looks like B cells memory are favored.</li>
+<li>Hallucination of CD4 memory resting T cells (1.7%), resting dendritic cells (1.3%). (All others are at &lt; 1%)</li>
 </ul>
 </li>
 </ul>
+<p>This particular naive B cell line is always underestimated by 10%, weird.</p>
+<p><strong>Even when $p=0, R^2$ is high, we get bad deconvolution -- errors of 10% or more.</strong></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Experiment-4:-superclass-classification">Experiment 4: superclass classification<a class="anchor-link" href="#Experiment-4:-superclass-classification">&#182;</a></h2><p><a href="http://localhost:8888/notebooks/Evaluating%20the%20deconvolution%20once%20we%20have%20a%20basis%20matrix.ipynb#Superset-classification">(notebook)</a></p>
+<p>I retrained Cibersort on some superclasses from the same input data: B cells, T cells, and myeloblasts. I created a new basis matrix exactly in the way that LM22 was created (<a href="Compare%20my%20LM22%20to%20the%20paper%20version.ipynb">which I had verified earlier</a>).</p>
+<p>The basis consisted of:</p>
+<ul>
+<li>B cells: "plasma cells" and "B cells*"</li>
+<li>Myeloblasts: "Monocytes" + "Macrophages.M0" + "Eosinophils" + "Neutrophils"</li>
+<li>T cells: "T cells"</li>
+</ul>
+<p>Then I used the new basis matrix with Cibersort to deconvolve the same mixtures as above:</p>
+<ul>
+<li>B cell naive 25%, Treg 75%<ul>
+<li>reference profiles</li>
+<li>two raw cell lines</li>
+</ul>
+</li>
+<li>B cell naive 50%, B cell memory 50%<ul>
+<li>reference profiles</li>
+<li>two raw cell lines</li>
+</ul>
+</li>
+</ul>
+<p>Here is the plot of absolute differences:
+<img src="superclass_error.png" alt="superclass classification error"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Conclusions">Conclusions<a class="anchor-link" href="#Conclusions">&#182;</a></h1><ul>
 <li>Diagnostics ($p, R^2$) are not informative, and are misleading if anything.</li>
-<li>Deconvolution can suck in simple cases even without noise; somehow, noise reduces the error (perhaps we're getting lucky?).</li>
-<li>The pathological cases are particularly painful always, regardless of how much noise, if any, is applied.</li>
-<li>There is clear motivation for hierarchical classification: see the hierarchical clustering plot, and see the pathological case above. </li>
+<li>Some cell types are very poorly deconvolved -- e.g. B cells naive. We don't even need noise to make a pathological case.</li>
+<li>There is clear motivation for hierarchical classification: see the hierarchical clustering plot from earlier, the above disappointing experiment with differentiating very similar classes, and the above successful experiment with superclass classification.</li>
 <li>There is a lot of variance in immune cell expression that is not captured by the methods.</li>
 </ul>
 <h1 id="Next-steps">Next steps<a class="anchor-link" href="#Next-steps">&#182;</a></h1><h2 id="Does-RNAseq-input-data-behave-differently-from-microarray?-How-does-quantification-method-determine-results?">Does RNAseq input data behave differently from microarray? How does quantification method determine results?<a class="anchor-link" href="#Does-RNAseq-input-data-behave-differently-from-microarray?-How-does-quantification-method-determine-results?">&#182;</a></h2><h2 id="Variance">Variance<a class="anchor-link" href="#Variance">&#182;</a></h2><ul>
 <li>Investigate influence of tumor vs blood origins, varying tissues of origin.</li>
 <li>Merge those histograms by gene to see a more accurate distribution -- right now showing probesets though Cibersort has gene-level specificity.</li>
 </ul>
-<h2 id="Profile-extraction">Profile extraction<a class="anchor-link" href="#Profile-extraction">&#182;</a></h2><ul>
-<li>How are superset profiles made (e.g. average overall types of T cells)?</li>
-</ul>
 <h2 id="Deconvolution">Deconvolution<a class="anchor-link" href="#Deconvolution">&#182;</a></h2><ul>
-<li>Experiment with superclass classification. Try Cibersort with simple, higher set -- are we still getting failures? What is the level of noise?</li>
-<li>Maybe averaging these cell lines is not a biologically relevant state.</li>
 <li>Are these results consistent across replications? Maybe the randomness of the noise is playing a role in which experiments noise is killing and which it isn't? </li>
-<li>There's something bizarre about the very first experiment. Not sure why the results are so poor.</li>
 </ul>
 <h2 id="Build-a-proof-of-concept-multi-level-model,-perhaps-with-variance-incorporated">Build a proof of concept multi-level model, perhaps with variance incorporated<a class="anchor-link" href="#Build-a-proof-of-concept-multi-level-model,-perhaps-with-variance-incorporated">&#182;</a></h2>
 </div>
