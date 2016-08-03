@@ -1,0 +1,9 @@
+{
+	"n_targets": 173259,
+	"n_bootstraps": 30,
+	"n_processed": 13265972,
+	"kallisto_version": "0.43.0",
+	"index_version": 10,
+	"start_time": "Sun Jul 31 19:47:43 2016",
+	"call": "kallisto quant -i Homo_sapiens.GRCh38.cdna.all.kallisto.idx -b 30 -t 4 --bias -o output/ERR431624/ fastq_trimmed/ERR431624_1_val_1.fq fastq_trimmed/ERR431624_2_val_2.fq"
+}

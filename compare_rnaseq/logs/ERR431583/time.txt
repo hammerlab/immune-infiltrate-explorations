@@ -1,0 +1,7 @@
+Starting	2016-07-29 23:03:00:270
+Beginning ungzip:	2016-07-29 23:03:00:514
+Finished UNTAR:	2016-07-29 23:07:46:484
+Trimming Fastq:	2016-07-29 23:07:46:505
+Finished Trimming Fastq:	2016-07-29 23:35:08:519
+Running Kallisto:	2016-07-29 23:35:08:547
+Taring output	2016-07-29 23:48:04:931

@@ -1,0 +1,371 @@
+You have 4 cores and 25G GB of memory
+unpigz -f ERR431583_1.fastq.gz ERR431583_2.fastq.gz
+No quality encoding type selected. Assuming that the data provided uses Sanger encoded Phred scores (default)
+
+Path to Cutadapt set as: 'cutadapt' (default)
+1.10
+Cutadapt seems to be working fine (tested command 'cutadapt --version')
+
+
+AUTO-DETECTING ADAPTER TYPE
+===========================
+Attempting to auto-detect adapter type from the first 1 million sequences of the first file (>> fastq_untrimmed/ERR431583_1.fastq <<)
+
+Found perfect matches for the following adapter sequences:
+Adapter type	Count	Sequence	Sequences analysed	Percentage
+Illumina	56043	AGATCGGAAGAGC	1000000	5.60
+Nextera	9	CTGTCTCTTATA	1000000	0.00
+smallRNA	2	TGGAATTCTCGG	1000000	0.00
+Using Illumina adapter for trimming (count: 56043). Second best hit was Nextera (count: 9)
+
+Writing report to 'fastq_trimmed/ERR431583_1.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: fastq_untrimmed/ERR431583_1.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.4.1
+Cutadapt version: 1.10
+Quality Phred score cutoff: 20
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; auto-detected)
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 35 bp
+
+Writing final adapter and quality trimmed output to ERR431583_1_trimmed.fq
+
+
+  >>> Now performing quality (cutoff 20) and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file fastq_untrimmed/ERR431583_1.fastq <<< 
+10000000 sequences processed
+This is cutadapt 1.10 with Python 2.7.11+
+Command line parameters: -f fastq -e 0.1 -q 20 -O 1 -a AGATCGGAAGAGC fastq_untrimmed/ERR431583_1.fastq
+Trimming 1 adapter with at most 10.0% errors in single-end mode ...
+Finished in 209.15 s (13 us/read; 4.45 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:              15,494,812
+Reads with adapters:                 5,855,164 (37.8%)
+Reads written (passing filters):    15,494,812 (100.0%)
+
+Total basepairs processed: 1,564,976,012 bp
+Quality-trimmed:             111,454,547 bp (7.1%)
+Total written (filtered):  1,383,572,059 bp (88.4%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 5855164 times.
+
+No. of allowed errors:
+0-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 25.0%
+  C: 28.8%
+  G: 17.3%
+  T: 14.6%
+  none/other: 14.4%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	3301067	3873703.0	0	3301067
+2	1079118	968425.8	0	1079118
+3	294893	242106.4	0	294893
+4	74189	60526.6	0	74189
+5	35122	15131.7	0	35122
+6	23906	3782.9	0	23906
+7	16871	945.7	0	16871
+8	17320	236.4	0	17320
+9	13798	59.1	0	13540 258
+10	12275	14.8	1	11654 621
+11	11030	3.7	1	10549 481
+12	10393	0.9	1	10002 391
+13	8113	0.2	1	7806 307
+14	7843	0.2	1	7545 298
+15	8241	0.2	1	7837 404
+16	7467	0.2	1	7041 426
+17	9508	0.2	1	8696 812
+18	6711	0.2	1	6279 432
+19	4165	0.2	1	3972 193
+20	4608	0.2	1	4334 274
+21	3914	0.2	1	3673 241
+22	3467	0.2	1	3255 212
+23	3363	0.2	1	3158 205
+24	2442	0.2	1	2296 146
+25	2636	0.2	1	2465 171
+26	2163	0.2	1	2027 136
+27	2722	0.2	1	2518 204
+28	2277	0.2	1	2095 182
+29	2264	0.2	1	2081 183
+30	1915	0.2	1	1786 129
+31	1044	0.2	1	952 92
+32	1165	0.2	1	1002 163
+33	1349	0.2	1	1132 217
+34	2109	0.2	1	1750 359
+35	2025	0.2	1	1649 376
+36	3061	0.2	1	2622 439
+37	2737	0.2	1	2323 414
+38	2689	0.2	1	2200 489
+39	3503	0.2	1	3050 453
+40	2742	0.2	1	2143 599
+41	4783	0.2	1	4462 321
+42	6047	0.2	1	5868 179
+43	2146	0.2	1	1950 196
+44	1763	0.2	1	1386 377
+45	3602	0.2	1	3017 585
+46	3410	0.2	1	3098 312
+47	1859	0.2	1	1564 295
+48	2604	0.2	1	2262 342
+49	2291	0.2	1	1994 297
+50	2039	0.2	1	1498 541
+51	1986	0.2	1	1469 517
+52	3745	0.2	1	3044 701
+53	4583	0.2	1	4291 292
+54	2061	0.2	1	1837 224
+55	2520	0.2	1	2027 493
+56	7151	0.2	1	5627 1524
+57	10875	0.2	1	10172 703
+58	7125	0.2	1	5785 1340
+59	11563	0.2	1	10823 740
+60	4377	0.2	1	3774 603
+61	6757	0.2	1	5915 842
+62	12401	0.2	1	8826 3575
+63	31554	0.2	1	29206 2348
+64	14723	0.2	1	13763 960
+65	5500	0.2	1	4429 1071
+66	9929	0.2	1	7316 2613
+67	23178	0.2	1	16391 6787
+68	46230	0.2	1	32783 13447
+69	87129	0.2	1	57739 29390
+70	156275	0.2	1	124474 31801
+71	114367	0.2	1	80630 33737
+72	126180	0.2	1	104819 21361
+73	60669	0.2	1	51007 9662
+74	26593	0.2	1	25210 1383
+75	2718	0.2	1	2434 284
+76	894	0.2	1	754 140
+77	470	0.2	1	372 98
+78	340	0.2	1	248 92
+79	278	0.2	1	202 76
+80	285	0.2	1	210 75
+81	245	0.2	1	187 58
+82	259	0.2	1	202 57
+83	210	0.2	1	152 58
+84	252	0.2	1	183 69
+85	259	0.2	1	185 74
+86	318	0.2	1	240 78
+87	384	0.2	1	286 98
+88	339	0.2	1	257 82
+89	405	0.2	1	318 87
+90	400	0.2	1	323 77
+91	371	0.2	1	275 96
+92	492	0.2	1	362 130
+93	569	0.2	1	443 126
+94	821	0.2	1	691 130
+95	1206	0.2	1	1034 172
+96	1538	0.2	1	1359 179
+97	988	0.2	1	813 175
+98	1015	0.2	1	807 208
+99	1447	0.2	1	1266 181
+100	1882	0.2	1	1613 269
+101	32539	0.2	1	31014 1525
+
+
+RUN STATISTICS FOR INPUT FILE: fastq_untrimmed/ERR431583_1.fastq
+=============================================
+15494812 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Writing report to 'fastq_trimmed/ERR431583_2.fastq_trimming_report.txt'
+
+SUMMARISING RUN PARAMETERS
+==========================
+Input filename: fastq_untrimmed/ERR431583_2.fastq
+Trimming mode: paired-end
+Trim Galore version: 0.4.1
+Cutadapt version: 1.10
+Quality Phred score cutoff: 20
+Quality encoding type selected: ASCII+33
+Adapter sequence: 'AGATCGGAAGAGC' (Illumina TruSeq, Sanger iPCR; auto-detected)
+Maximum trimming error rate: 0.1 (default)
+Minimum required adapter overlap (stringency): 1 bp
+Minimum required sequence length for both reads before a sequence pair gets removed: 35 bp
+
+Writing final adapter and quality trimmed output to ERR431583_2_trimmed.fq
+
+
+  >>> Now performing quality (cutoff 20) and adapter trimming in a single pass for the adapter sequence: 'AGATCGGAAGAGC' from file fastq_untrimmed/ERR431583_2.fastq <<< 
+10000000 sequences processed
+This is cutadapt 1.10 with Python 2.7.11+
+Command line parameters: -f fastq -e 0.1 -q 20 -O 1 -a AGATCGGAAGAGC fastq_untrimmed/ERR431583_2.fastq
+Trimming 1 adapter with at most 10.0% errors in single-end mode ...
+Finished in 206.33 s (13 us/read; 4.51 M reads/minute).
+
+=== Summary ===
+
+Total reads processed:              15,494,812
+Reads with adapters:                 5,658,210 (36.5%)
+Reads written (passing filters):    15,494,812 (100.0%)
+
+Total basepairs processed: 1,564,976,012 bp
+Quality-trimmed:             293,583,273 bp (18.8%)
+Total written (filtered):  1,223,128,250 bp (78.2%)
+
+=== Adapter 1 ===
+
+Sequence: AGATCGGAAGAGC; Type: regular 3'; Length: 13; Trimmed: 5658210 times.
+
+No. of allowed errors:
+0-9 bp: 0; 10-13 bp: 1
+
+Bases preceding removed adapters:
+  A: 29.7%
+  C: 29.5%
+  G: 15.4%
+  T: 13.2%
+  none/other: 12.2%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+1	3437163	3873703.0	0	3437163
+2	1072385	968425.8	0	1072385
+3	266999	242106.4	0	266999
+4	51062	60526.6	0	51062
+5	21496	15131.7	0	21496
+6	16356	3782.9	0	16356
+7	6666	945.7	0	6666
+8	12151	236.4	0	12151
+9	10226	59.1	0	8984 1242
+10	8893	14.8	1	7440 1453
+11	6483	3.7	1	5065 1418
+12	6894	0.9	1	5974 920
+13	7832	0.2	1	6312 1520
+14	7305	0.2	1	6552 753
+15	2346	0.2	1	1919 427
+16	5111	0.2	1	4167 944
+17	4086	0.2	1	3508 578
+18	1949	0.2	1	1651 298
+19	2847	0.2	1	2537 310
+20	2008	0.2	1	1705 303
+21	1150	0.2	1	952 198
+22	1975	0.2	1	1726 249
+23	2801	0.2	1	2046 755
+24	3140	0.2	1	2650 490
+25	2075	0.2	1	1715 360
+26	6524	0.2	1	2311 4213
+27	2970	0.2	1	1802 1168
+28	2900	0.2	1	2327 573
+29	2689	0.2	1	1357 1332
+30	3989	0.2	1	3527 462
+31	605	0.2	1	303 302
+32	1083	0.2	1	856 227
+33	499	0.2	1	310 189
+34	729	0.2	1	526 203
+35	979	0.2	1	667 312
+36	1742	0.2	1	1281 461
+37	1632	0.2	1	1218 414
+38	2328	0.2	1	1942 386
+39	3397	0.2	1	2659 738
+40	4906	0.2	1	3927 979
+41	11401	0.2	1	8115 3286
+42	16935	0.2	1	15663 1272
+43	5421	0.2	1	4311 1110
+44	26696	0.2	1	17805 8891
+45	63244	0.2	1	61317 1927
+46	3641	0.2	1	3341 300
+47	2878	0.2	1	2563 315
+48	5012	0.2	1	4677 335
+49	5374	0.2	1	4789 585
+50	15038	0.2	1	14329 709
+51	4685	0.2	1	4469 216
+52	749	0.2	1	661 88
+53	502	0.2	1	400 102
+54	2168	0.2	1	1933 235
+55	3158	0.2	1	2936 222
+56	2308	0.2	1	2089 219
+57	3774	0.2	1	3303 471
+58	14153	0.2	1	13490 663
+59	14613	0.2	1	13565 1048
+60	6186	0.2	1	5695 491
+61	14487	0.2	1	13412 1075
+62	32269	0.2	1	28831 3438
+63	74015	0.2	1	69888 4127
+64	151062	0.2	1	142400 8662
+65	97489	0.2	1	92499 4990
+66	76029	0.2	1	71409 4620
+67	3046	0.2	1	2669 377
+68	769	0.2	1	687 82
+69	582	0.2	1	534 48
+70	535	0.2	1	477 58
+71	427	0.2	1	379 48
+72	209	0.2	1	182 27
+73	139	0.2	1	119 20
+74	116	0.2	1	93 23
+75	66	0.2	1	42 24
+76	45	0.2	1	32 13
+77	39	0.2	1	27 12
+78	29	0.2	1	16 13
+79	31	0.2	1	23 8
+80	15	0.2	1	10 5
+81	34	0.2	1	18 16
+82	29	0.2	1	18 11
+83	25	0.2	1	20 5
+84	31	0.2	1	21 10
+85	26	0.2	1	15 11
+86	31	0.2	1	16 15
+87	19	0.2	1	8 11
+88	28	0.2	1	17 11
+89	19	0.2	1	12 7
+90	17	0.2	1	11 6
+91	19	0.2	1	16 3
+92	24	0.2	1	11 13
+93	24	0.2	1	17 7
+94	18	0.2	1	9 9
+95	20	0.2	1	16 4
+96	16	0.2	1	9 7
+97	16	0.2	1	7 9
+98	16	0.2	1	12 4
+99	17	0.2	1	12 5
+100	13	0.2	1	10 3
+101	62	0.2	1	51 11
+
+
+RUN STATISTICS FOR INPUT FILE: fastq_untrimmed/ERR431583_2.fastq
+=============================================
+15494812 sequences processed in total
+The length threshold of paired-end sequences gets evaluated later on (in the validation step)
+
+Validate paired-end files ERR431583_1_trimmed.fq and ERR431583_2_trimmed.fq
+file_1: ERR431583_1_trimmed.fq, file_2: ERR431583_2_trimmed.fq
+
+
+>>>>> Now validing the length of the 2 paired-end infiles: ERR431583_1_trimmed.fq and ERR431583_2_trimmed.fq <<<<<
+Writing validated paired-end read 1 reads to ERR431583_1_val_1.fq
+Writing validated paired-end read 2 reads to ERR431583_2_val_2.fq
+
+Total number of sequences analysed: 15494812
+
+Number of sequence pairs removed because at least one read was shorter than the length cutoff (35 bp): 1108198 (7.15%)
+
+Deleting both intermediate output files ERR431583_1_trimmed.fq and ERR431583_2_trimmed.fq
+
+====================================================================================================
+
+
+[quant] fragment length distribution will be estimated from the data
+[index] k-mer length: 31
+[index] number of targets: 173,259
+[index] number of k-mers: 104,344,666
+[index] number of equivalence classes: 695,212
+[quant] running in paired-end mode
+[quant] will process pair 1: fastq_trimmed/ERR431583_1_val_1.fq
+                             fastq_trimmed/ERR431583_2_val_2.fq
+[quant] finding pseudoalignments for the reads ... done
+[quant] learning parameters for sequence specific bias
+[quant] processed 14,386,614 reads, 10,027,466 reads pseudoaligned
+[quant] estimated average fragment length: 227.032
+[   em] quantifying the abundances ... done
+[   em] the Expectation-Maximization algorithm ran for 3,025 rounds
+[bstrp] number of EM bootstraps complete: 1[bstrp] number of EM bootstraps complete: 2[bstrp] number of EM bootstraps complete: 3[bstrp] number of EM bootstraps complete: 4[bstrp] number of EM bootstraps complete: 5[bstrp] number of EM bootstraps complete: 6[bstrp] number of EM bootstraps complete: 7[bstrp] number of EM bootstraps complete: 8[bstrp] number of EM bootstraps complete: 9[bstrp] number of EM bootstraps complete: 10[bstrp] number of EM bootstraps complete: 11[bstrp] number of EM bootstraps complete: 12[bstrp] number of EM bootstraps complete: 13[bstrp] number of EM bootstraps complete: 14[bstrp] number of EM bootstraps complete: 15[bstrp] number of EM bootstraps complete: 16[bstrp] number of EM bootstraps complete: 17[bstrp] number of EM bootstraps complete: 18[bstrp] number of EM bootstraps complete: 19[bstrp] number of EM bootstraps complete: 20[bstrp] number of EM bootstraps complete: 21[bstrp] number of EM bootstraps complete: 22[bstrp] number of EM bootstraps complete: 23[bstrp] number of EM bootstraps complete: 24[bstrp] number of EM bootstraps complete: 25[bstrp] number of EM bootstraps complete: 26[bstrp] number of EM bootstraps complete: 27[bstrp] number of EM bootstraps complete: 28[bstrp] number of EM bootstraps complete: 29[bstrp] number of EM bootstraps complete: 30
+
