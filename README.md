@@ -1,4 +1,4 @@
-## Immune infiltrate explorations (WIP)
+## Immune infiltrate quantification
 
 We are looking to understand the current state-of-the-art and motivate new methods:
 
@@ -15,8 +15,9 @@ See Summary.ipynb for an overview of the analysis.
 
 Directories:
 
-* `curated_data/`: data downloads
+* `curated_data/`: data downloads. Some data is not in Git and is only in a Google bucket -- see README in `curated_data`.
 * `data_engineering/`: some transformations of the data
 * `evaluate_existing_methods/`: analysis to evaluate existing deconvolution methods
 * `hierarchical_models/`: new hierarchical classification models
 * `behavior_of_rnaseq_data/`: analysis of how RNA-seq data behaves in comparison to microarray data
+* `plots/`: generated figures
