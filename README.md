@@ -6,11 +6,12 @@ We are looking to understand the current state-of-the-art and motivate new metho
 * Understand differences between microarry and RNAseq deconvolution
 * Understand how existing methods perform deconvolution of an unknown mixture based on reference marker genes or expression signatures, and the drawbacks of these methods
 * Show test cases where the existing methods fail
-* Collect training/ground truth data from existing papers that we can use.
+* Collect training/ground truth data from existing papers that we can use
+* Prototype new deconvolution models.
 
 See Summary.ipynb for an overview of the analysis.
 
-(Summary.html is a snapshot of Summary.ipynb with better rendering of the table of contents. It's also saved into gh-pages and hosted at www.hammerlab.org/immune-infiltrate-explorations/Summary.html)
+(Summary.html is a snapshot of Summary.ipynb with better rendering of the table of contents than Github's rendering of Summary.ipynb. It's also saved into gh-pages and hosted at www.hammerlab.org/immune-infiltrate-explorations/Summary.html. The table of contents is made by the TOC jupyter nbextension.)
 
 Directories:
 
