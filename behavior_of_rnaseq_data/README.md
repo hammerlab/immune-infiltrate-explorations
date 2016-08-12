@@ -14,4 +14,4 @@ Notebooks:
 * `0 load.ipynb`: Loads downloaded data and does some processing, e.g. aggregating TPM across genes for each sample. Writes `summary.simple.tsv`. Has some work-in-progress python port from `tximport`.
 * `1 EDA.ipynb`: Compares behavior of RNA-seq data to microarray data. Output is in `plots/`.
 
-The data is from [*De novo transcriptome profiling of highly purified human lymphocytes primary cells*](http://www.nature.com/articles/sdata201551), in FASTQ form. I downloaded, trimmed, and ran Kallisto on the data using a Kubernetes cluster. The processing pipeline is in the repo [*hammerlab/mz-rnaseq-pipeline*](https://github.com/hammerlab/mz-rnaseq-pipeline).
+The data is from [*De novo transcriptome profiling of highly purified human lymphocytes primary cells*](http://www.nature.com/articles/sdata201551), in FASTQ form. I downloaded, trimmed, and ran Kallisto on the data using a Kubernetes cluster. The processing pipeline is in the repo [*hammerlab/infiltrate-rnaseq-pipeline*](https://github.com/hammerlab/infiltrate-rnaseq-pipeline).
