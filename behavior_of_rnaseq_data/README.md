@@ -1,6 +1,6 @@
 # How does RNA-seq data behave, in comparison to microarray data?
 
-See Summary notebook for a walk-through of the results.
+See Summary notebook in root directory for a walk-through of the results.
 
 How this directory is organized:
 

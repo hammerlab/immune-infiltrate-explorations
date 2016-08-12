@@ -9,7 +9,7 @@ We are looking to understand the current state-of-the-art and motivate new metho
 * Collect training/ground truth data from existing papers that we can use
 * Prototype new deconvolution models.
 
-See Summary.ipynb for an overview of the analysis.
+See Summary.ipynb for an overview of the analysis. Here's also [the latest project review](https://docs.google.com/presentation/d/1VSIKzc2ygqsOmjYErKSdegzSrqOFhIXRgOGJtcak8VU/edit?usp=sharing).
 
 (Summary.html is a snapshot of Summary.ipynb with better rendering of the table of contents than Github's rendering of Summary.ipynb. It's also saved into gh-pages and hosted at www.hammerlab.org/immune-infiltrate-explorations/Summary.html. The table of contents is made by the TOC jupyter nbextension.)
 
