@@ -21,3 +21,4 @@ Directories:
 * `hierarchical_models/`: new hierarchical classification models
 * `behavior_of_rnaseq_data/`: analysis of how RNA-seq data behaves in comparison to microarray data
 * `plots/`: generated figures
+* `reference-extraction_writeup/reference_extraction.pdf`: an analysis of the reference extraction -- linked from Summary notebook

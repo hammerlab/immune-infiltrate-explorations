@@ -1,8 +1,12 @@
-Datasets here:
+Datasets here are labeled as they are cited in the reference extraction writeup (see the md file or bib).
 
-* 
-* Bindea with T gamma delta, T follicular helper cells removed (per MSK paper)
-*
+Note that in Bindea dataset, the T gamma delta and T follicular helper cells removed (per Yasin/MSK paper).
+
+The Abbas data is downloaded from the Cibersort website.
+
+Some data is too big for git, and is stored separately.
+
+Data is post-processed in `data_engineering/` directory, where a notebook eventually creates `all_expressions.tsv`.
 
 How to run generators of basis matrices:
 
