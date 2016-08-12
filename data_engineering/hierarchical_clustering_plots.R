@@ -1,3 +1,9 @@
+# make hierarchical clustering plots (heatmap w/ dendrogram) of LM22 and Abbas data
+# this is how plots/lm22.pdf was made.
+# (plots/lm22.png was made from plots/lm22.pdf by imagemagick's convert command in Summary.ipynb)
+# run the below, then manually save off the graphics
+
+
 setwd('C:\\Users\\maxim\\Desktop\\code\\hammer\\infil')
 biocLite('ALL')
 library('ALL')
