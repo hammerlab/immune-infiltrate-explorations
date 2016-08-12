@@ -8,4 +8,14 @@ We are looking to understand the current state-of-the-art and motivate new metho
 * Show test cases where the existing methods fail
 * Collect training/ground truth data from existing papers that we can use.
 
-See Summary.ipynb
+See Summary.ipynb for an overview of the analysis.
+
+(Summary.html is a snapshot of Summary.ipynb with better rendering of the table of contents. It's also saved into gh-pages and hosted at www.hammerlab.org/immune-infiltrate-explorations/Summary.html)
+
+Directories:
+
+* `curated_data/`: data downloads
+* `data_engineering/`: some transformations of the data
+* `evaluate_existing_methods/`: analysis to evaluate existing deconvolution methods
+* `hierarchical_models/`: new hierarchical classification models
+* `behavior_of_rnaseq_data/`: analysis of how RNA-seq data behaves in comparison to microarray data
