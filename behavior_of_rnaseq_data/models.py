@@ -129,6 +129,29 @@ def prep_yrep_summary(stan_fit, sample_df, par='y_rep', value_name='pp_est_count
     return yrep_ldf
 
 
+def prep_omega_summary(stan_fit, stan_data, gene_id='cell_type', par='Omega', return_summary=True):
+    omega_df = extract_theta_summary(stan_fit=stan_fit,
+                                          colnames=list(stan_data['x'].columns),
+                                          gene_id=gene_id,
+                                          par=par)
+    omega_df[gene_id] = omega_df[gene_id].apply(lambda x: list(stan_data['x'].columns)[x-1])
+    omega_summary = omega_df.groupby(gene_id).apply(lambda x: np.mean(x))
+    if return_summary:
+        return omega_summary
+    else:
+        return omega_df
+        
+
+    
+def prep_theta_mu_summary(stan_fit, stan_data, par='theta_mu'):
+    mu_ex = stan_fit.extract(par)[par]
+    mu_df = pd.DataFrame(mu_ex, columns=list(stan_data['x'].columns))
+    mu_df.reset_index(inplace=True)
+    mu_df.rename(columns = {'index': 'iter'}, inplace=True)
+    mu_ldf = pd.melt(mu_df, id_vars='iter', value_vars=list(stan_data['x'].columns))
+    return mu_ldf
+
+
 def patsy_helper_nointercept(df, formula):
     model_frame = patsy.dmatrix('{} - 1'.format(formula), data=df, return_type='dataframe')
     if 'Intercept' in model_frame.columns:
@@ -257,5 +280,5 @@ def run_model(model_name, sample_n=500, by='cell_type', cell_features=None,
     model_file = get_model_file(model_name=model_name, model_dir=model_dir)
     sample_df = cached(prep_sample_df, sample_n=sample_n)
     stan_data = prep_stan_data(sample_df, by=by, cell_features=cell_features)
-    fit = cached_stan_fit(model_name=model_name, file=model_file, data=stan_data, iter=iter, chains=chains, **kwargs)
+    fit = cached_stan_fit(file=model_file, data=stan_data, iter=iter, chains=chains, model_name=model_name, **kwargs)
     return dict(fit=fit, stan_data=stan_data, sample_df=sample_df, model_file=model_file, model_name=model_name)
