@@ -16,7 +16,7 @@ data {
     int<lower=0> y[N];                // count/tpm for each obs
     
     // group-level predictors for each class C
-    matrix cell_features[C, M]; 
+    matrix[C, M] cell_features; 
 }
 transformed data {
     int sample_y[S, G];    // array (size SxG) of ints
@@ -27,6 +27,7 @@ transformed data {
     }
 }
 parameters {
+    //cholesky_factor_corr[C] L_Omega;
     corr_matrix[C] Omega;        // degree of correlation among loading factors for each cell type
     vector<lower=0>[C] tau;      // scale for each cell type - multiplied (on diagonal) with Omega
     matrix<lower=0>[G, C] theta; // loading factors for each gene, for each cell type
@@ -38,16 +39,18 @@ parameters {
     vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
 }
 model {
+    matrix[C, C] sigma_theta;
+    sigma_theta = quad_form_diag(Omega, tau);
     // estimate theta: relative expression per cell type per gene transcript
     tau ~ cauchy(0, 2.5);
     Omega ~ lkj_corr(2);
     theta_mu ~ normal(0, 1);
-    to_vector(theta_coefs_per_gene) ~ normal(0, 1);
     theta_coefs ~ normal(0, 1);
     for (g in 1:G) {
         vector[C] theta_tmp; // temporary predictor for cell-gene-specific expression level
+        theta_coefs_per_gene[g] ~ normal(0, 1);
         theta_tmp = theta_mu + cell_features*(theta_coefs + theta_coefs_per_gene[g]);
-        theta[g] ~ multi_normal(theta_tmp, quad_form_diag(Omega, tau));
+        theta[g] ~ multi_normal(theta_tmp, sigma_theta);
     }
     // estimate sample_y: obseved expression for a sample (possibly a mixture)
     log_gene_base ~ normal(0, 1);
