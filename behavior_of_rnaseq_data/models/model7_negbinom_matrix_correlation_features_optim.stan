@@ -32,20 +32,19 @@ parameters {
     //corr_matrix[C] Omega;        // degree of correlation among loading factors for each cell type
     vector<lower=0>[C] tau;      // scale for each cell type - multiplied (on diagonal) with Omega
     vector[C] theta_mu;          // mean expression level for each cell type
-    vector[M] theta_coefs;
-    vector[M] theta_coefs_offset[G];
+    matrix[M, G] theta_coefs_per_gene;
     
     vector[G] log_gene_base;     // constant intercept expression level for each gene, irrespective of cell type
     vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
 }
 transformed parameters {
     matrix<lower=0>[G, C] theta; // loading factors for each gene, for each cell type
-    matrix[M, G] theta_coefs_per_gene;
-    matrix[G, C] sigma_theta;
-    sigma_theta = (diag_pre_multiply(tau,L_Omega) * z)';
-    for (g in 1:G)
-        theta_coefs_per_gene[,g] = theta_coefs + theta_coefs_offset[g];
-    theta = (cell_features*theta_coefs_per_gene)' + sigma_theta;
+    { 
+        matrix[C, G] tmp_theta;
+        for (c in 1:C)
+            tmp_theta[c] = theta_mu[c] + cell_features[c]*theta_coefs_per_gene;
+        theta = tmp_theta' + (diag_pre_multiply(tau,L_Omega) * z)';
+    }
 }
 model {
     // priors on components of theta: relative expression per cell type per gene transcript
@@ -53,9 +52,7 @@ model {
     to_vector(z) ~ normal(0, 1);
     L_Omega ~ lkj_corr_cholesky(2);
     theta_mu ~ normal(0, 1);
-    theta_coefs ~ normal(0, 1);
-    for (g in 1:G)
-        theta_coefs_offset[g] ~ normal(0, 1);
+    to_vector(theta_coefs_per_gene) ~ normal(0, 1);
     // estimate sample_y: obseved expression for a sample (possibly a mixture)
     log_gene_base ~ normal(0, 1);
     gene_phi ~ normal(0, 1);
