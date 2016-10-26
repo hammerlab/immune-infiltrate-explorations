@@ -137,7 +137,7 @@ def cached_stan_fit(*args, **kwargs):
     arglist = list(*args)
     if len(arglist)>0:
         raise ValueError('unnamed args not permitted')
-    return _cached_stan_fit(**kwargs, seed=seed.seed)
+    return _cached_stan_fit(seed=seed.seed, **kwargs)
 
 
 def cached(func, file_prefix='cached', cache_filename=None,

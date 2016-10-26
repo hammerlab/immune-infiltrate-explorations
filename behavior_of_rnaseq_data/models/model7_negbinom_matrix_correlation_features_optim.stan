@@ -31,19 +31,18 @@ parameters {
     matrix[C, G] z;
     //corr_matrix[C] Omega;        // degree of correlation among loading factors for each cell type
     vector<lower=0>[C] tau;        // scale for each cell type - multiplied (on diagonal) with Omega
-    vector<lower=0>[C] theta_mu;   // mean expression level for each cell type
-    matrix<lower=0>[M, G] theta_coefs_per_gene;
+    matrix[M, G] theta_coefs_per_gene;
     
     vector[G] log_gene_base;     // constant intercept expression level for each gene, irrespective of cell type
     vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
 }
 transformed parameters {
-    matrix<lower=0>[G, C] theta; // loading factors for each gene, for each cell type
+    matrix<lower=0>[G, C] theta;
     { 
         matrix[C, G] tmp_theta;
         for (c in 1:C)
-            tmp_theta[c] = theta_mu[c] + cell_features[c]*theta_coefs_per_gene;
-        theta = tmp_theta' + (diag_pre_multiply(tau,L_Omega) * z)';
+            tmp_theta[c] = exp(cell_features[c]*theta_coefs_per_gene); // better to do on log scale?
+        theta = tmp_theta' + (diag_pre_multiply(tau, L_Omega) * z)';
     }
 }
 model {
@@ -51,8 +50,8 @@ model {
     tau ~ cauchy(0, 2.5);
     to_vector(z) ~ normal(0, 1);
     L_Omega ~ lkj_corr_cholesky(2);
-    theta_mu ~ normal(0, 1);
     to_vector(theta_coefs_per_gene) ~ normal(0, 1);
+    
     // estimate sample_y: obseved expression for a sample (possibly a mixture)
     log_gene_base ~ normal(0, 1);
     gene_phi ~ normal(0, 1);

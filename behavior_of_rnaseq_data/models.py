@@ -10,6 +10,7 @@ from seed import seed
 from data import prep_annotated_data, prep_filename_metadata
 import os
 import logging
+from matplotlib import pyplot as plt
 logger = logging.getLogger(__name__)
 
 def filter_stan_summary(stan_fit, pars):
@@ -112,9 +113,17 @@ def prep_sample_df(df=None, sample_n=None, drop_zero_values=False, y_col='est_co
     return sample_df
 
 
-def prep_yrep_summary(stan_fit, sample_df, par='y_rep', value_name='pp_est_counts', sample_kwds=None):
+def prep_yrep_summary(stan_fit, sample_df, par='y_rep', value_name='pp_est_counts', sample_kwds=None,
+                     filter_genes=None):
     yrep = stan_fit.extract(par)[par]
-    yrep_df = pd.DataFrame(yrep)
+    if filter_genes is not None:
+        # if filtering on genes, identify which yrep indices correspond to those genes
+        # we ideally want to restrict our sample to these as early as possible
+        yrep_indices = list(sample_df.loc[sample_df['new_gene_cat'].isin(filter_genes),'index'].values)
+        yrep = yrep[:,yrep_indices]
+    else:
+        yrep_indices = None
+    yrep_df = pd.DataFrame(yrep, columns=yrep_indices)
     yrep_df.reset_index(inplace=True)
     yrep_df.rename(columns={'index': 'iter'}, inplace=True)
     if sample_kwds:
@@ -276,7 +285,69 @@ def get_model_file(model_name, model_dir='models', pattern="*.stan"):
         raise ValueError('Model could not be identified: {}'.format(model_name))
     return model_file
 
+def get_top_genes(model_fit, sample_df, colnames, sort_by, n_genes=10):
+    theta_ldf = prep_theta_summary(model_fit, sample_df=sample_df, colnames=colnames, sort_by=sort_by)
+    top_genes = theta_ldf.loc[theta_ldf['mean_abs_diff_rank_{}'.format(sort_by)] <= n_genes,:] \
+                .drop_duplicates(subset='new_gene_cat')['new_gene_cat'].values
+    return top_genes
+
+def plot_posterior_predictive_checks(model_fit, plot_genes, sample_df, yrep_df=None, n_genes=None):
+    if not n_genes:
+        n_genes = len(plot_genes)
+    plot_genes = plot_genes[:n_genes]
+    if yrep_df is None:
+        yrep_df = prep_yrep_summary(model_fit=model_fit, sample_df=sample_df, filter_genes=plot_genes)
+    # plot estimates & observed values for top 3 genes, by Subset
+    with sns.plotting_context('talk'):
+        if n_genes > 1:
+            f, axarr = plt.subplots(3, n_genes, sharey=False, sharex=True)
+        else:
+            f, axarr = plt.subplots(3, sharey=False, sharex=True)
+        cell=0
+        for cell_type in ['CD4','CD8','B']:
+            gene=0
+            for gene_name in plot_genes:
+                if n_genes > 1:
+                    this_ax = axarr[cell, gene]
+                else:
+                    this_ax = axarr[cell]
+                yrep_data = yrep_df.query('gene_cat == "{}" and cell_type == "{}"'.format(gene_name, cell_type))
+                obs_data = sample_df.query('gene_cat == "{}" and cell_type == "{}"'.format(gene_name, cell_type))
+                this_ax.grid(False)
+                g = sns.boxplot(data=yrep_data,
+                                y='SubSet',
+                                x='pp_est_counts',
+                                ax=this_ax,
+                                fliersize=0,
+                                linewidth=0.2)
+                sns.swarmplot(data=obs_data,
+                               y='SubSet',
+                               ax=this_ax,
+                               x='est_counts',
+                               color='black')
+                this_ax.set_xlabel('')
+                gene = gene+1
+            cell = cell+1
+
+    gene=0
+    for gene_name in plot_genes:
+        if n_genes > 1:
+            header_rows = axarr[0, gene]
+            footer_rows = axarr[2, gene]
+        else:
+            header_rows = axarr[0]
+            footer_rows = axarr[2]
+        header_rows.set_title(gene_name)
+        plt.setp(footer_rows.get_xticklabels(), rotation='vertical')
+        footer_rows.set_xlabel('estimated counts')
+
+        if (gene > 0):
+            for cell in np.arange(3):
+                plt.setp(axarr[cell, gene].get_yticklabels(), visible=False)
+        gene = gene+1
+
     
+
 def run_model(model_name, sample_n=500, by='cell_type', cell_features=None,
               model_dir='models', iter=500, chains=4, **kwargs):
     model_file = get_model_file(model_name=model_name, model_dir=model_dir)
