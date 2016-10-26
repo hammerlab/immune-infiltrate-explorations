@@ -9,6 +9,8 @@ import numpy as np
 from seed import seed
 from data import prep_annotated_data, prep_filename_metadata
 import os
+import logging
+logger = logging.getLogger(__name__)
 
 def filter_stan_summary(stan_fit, pars):
     fitsum = stan_fit.summary(pars=pars)
@@ -260,7 +262,7 @@ def get_model_file(model_name, model_dir='models', pattern="*.stan"):
         model_file = model_files[model_name]
     else:
         matching_files = [mfile for (mname, mfile) in model_files.items()
-                      if mname.startswith(model_name)]
+                      if re.match(string=mname, pattern='{}\w'.format(model_name))]
         if len(matching_files)==1:
             model_file = matching_files[0]
         elif len(matching_files)>1:

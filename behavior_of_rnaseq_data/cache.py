@@ -84,6 +84,8 @@ def _cached_stan_fit(model_name='anon_model', file=None, model_code=None,
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
     '''
     ## cached, compiled StanModel
+    if model_name: ## remove punc from model name
+        model_name = re.sub(string=model_name, pattern='[\.\-]', repl='_')
     if file:
         model_code = _read_file(file)
     if model_code:
@@ -122,7 +124,6 @@ def _cached_stan_fit(model_name='anon_model', file=None, model_code=None,
                   force=force,
                   cache_only=cache_only,
                   **kwargs)
-    logger.info('Fit cachefile: {}'.format(fit_cachefile))
     return fit
 
 
