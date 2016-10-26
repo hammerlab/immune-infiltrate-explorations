@@ -30,9 +30,9 @@ parameters {
     cholesky_factor_corr[C] L_Omega;
     matrix[C, G] z;
     //corr_matrix[C] Omega;        // degree of correlation among loading factors for each cell type
-    vector<lower=0>[C] tau;      // scale for each cell type - multiplied (on diagonal) with Omega
-    vector[C] theta_mu;          // mean expression level for each cell type
-    matrix[M, G] theta_coefs_per_gene;
+    vector<lower=0>[C] tau;        // scale for each cell type - multiplied (on diagonal) with Omega
+    vector<lower=0>[C] theta_mu;   // mean expression level for each cell type
+    matrix<lower=0>[M, G] theta_coefs_per_gene;
     
     vector[G] log_gene_base;     // constant intercept expression level for each gene, irrespective of cell type
     vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
