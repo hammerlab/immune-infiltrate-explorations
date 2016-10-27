@@ -11,6 +11,7 @@ from time import time
 from datetime import timedelta
 import pandas as pd
 import re
+import Cython
 
 logger = logging.getLogger(__name__)
 _this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -38,19 +39,26 @@ def _make_digest_dict(k, prefix=''):
     if len(k) == 0:
         return None
     for (key, item) in sorted(k.items()):
-        if isinstance(item, dict):
+        pre_key = '{}{}'.format(prefix, key)
+        if isinstance(item, str) and len(item) <= 11:
+            s = re.sub(string=item, pattern='[\.\-]', repl='_')
+            result.update({pre_key: s})
+        elif isinstance(item, int) and len(str(item)) <= 11:
+            s = re.sub(string=str(item), pattern='[\.\-]', repl='_')
+            result.update({pre_key: s})
+        elif isinstance(item, dict):
             item = dict(sorted(item.items()))
             s = _make_digest(item, prefix=key+'-')
-            result.update({'{}{}'.format(prefix, key): _digest(s.encode())})
+            result.update({pre_key: _digest(s.encode())})
         elif isinstance(item, pd.DataFrame):
             index = tuple(item.index)
             columns = tuple(item.columns)
             values = tuple(tuple(x) for x in item.values)
             s = _pickle_dumps_digest(tuple([index, columns, values]))
-            result.update({'{}{}'.format(prefix, key): s})
+            result.update({pre_key: s})
         else:
             s = _pickle_dumps_digest(item)
-            result.update({'{}{}'.format(prefix, key): s})
+            result.update({pre_key: s})
     return result
     
 def _make_digest(k, **kwargs):
@@ -89,7 +97,9 @@ def _cached_stan_fit(model_name='anon_model', file=None, model_code=None,
     if file:
         model_code = _read_file(file)
     if model_code:
-        model_prefix = '.'.join([model_name, _make_digest(dict(model_code=model_code))])
+        model_prefix = '.'.join([model_name, _make_digest(dict(model_code=model_code,
+                                                               pystan=pystan.__version__,
+                                                               cython=Cython.__version__))])
     if fit_cachefile:
         # if cachefile given, assume cache_only 
         if cache_only is None:
@@ -98,7 +108,7 @@ def _cached_stan_fit(model_name='anon_model', file=None, model_code=None,
         if fit_cachefile != os.path.basename(fit_cachefile):
             cache_dir, fit_cachefile = os.path.split(os.path.abspath(fit_cachefile))
         # if fit_cachefile given, parse to get fit_model_prefix
-        fit_model_prefix = re.sub(string=os.path.basename(fit_cachefile), pattern='(.*_\d+).stanfit.*', repl='\\1')
+        fit_model_prefix = re.sub(string=os.path.basename(fit_cachefile), pattern='(.*).stanfit.*', repl='\\1')
         if model_code:
             if fit_model_prefix != model_prefix:
                 logger.warning('Computed model prefix does not match that used to estimate model. Using prefix matching fit_cachefile')
@@ -155,8 +165,8 @@ def cached(func, file_prefix='cached', cache_filename=None,
         try:
             logger.info('{}: Loading result from cache'.format(func.__name__))
             res = pickle.load(open(cache_filepath, 'rb'))
-        except:
-            print('{}: Error loading from cache'.format(func.__name__))
+        except ImportError as e:
+            print('{}: Error loading from cache: {}'.format(func.__name__, str(e)))
         else:
             return res
     if cache_only:
