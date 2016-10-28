@@ -2,15 +2,15 @@
 
 There are now a number of different components to this so it's worth describing my set up. In case it's not clear, all of these steps are meant to be followed in the current directory.
 
-#### Creating a dedicated and isolated environment
+## Creating a dedicated and isolated environment
 [Install miniconda](http://conda.pydata.org/miniconda.html) if you haven't already done so.
 
 ```shell
-## Create "immuneinf" python3 environment
+# Create "immuneinf" python3 environment
 $ conda create -n immuneinf python=3 matplotlib pandas seaborn numpy scipy jupyter
 ```
 
-#### Activating the environment and updating the dependencies
+## Activating the environment and updating the dependencies
 Once you have your conda environment ready,
 to activate it, use:
 
@@ -31,7 +31,7 @@ To add this kernel to your jupyter environment (e.g. to be able to select it for
 
 This will add a new kernel named "immune3" to your jupyter environment, referencing the "immuneinf" conda environment.
 
-#### re-execute the notebooks
+## re-execute the notebooks
 
 Finally, given the amount of time it takes for these models to fit (currently!), I typically run them overnight.
 
