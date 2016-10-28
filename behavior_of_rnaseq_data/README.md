@@ -8,19 +8,23 @@ How this directory is organized:
 * `data_filenames.tsv`: links data filenames to cell types
 * `exploratory/`: some notebooks I was playing with but have not started using
 * `plots/`: output plots
+* `models/`: code for each stan model
 
 Notebooks:
 
 * `0 load.ipynb`: Loads downloaded data and does some processing, e.g. aggregating TPM across genes for each sample. Writes `summary.simple.tsv`. Has some work-in-progress python port from `tximport`.
 * `1 EDA.ipynb`: Compares behavior of RNA-seq data to microarray data. Output is in `plots/`.
+* `0.*.ipynb`: One notebook for each model iteration
 
 The data is from [*De novo transcriptome profiling of highly purified human lymphocytes primary cells*](http://www.nature.com/articles/sdata201551), in FASTQ form. I downloaded, trimmed, and ran Kallisto on the data using a Kubernetes cluster. The processing pipeline is in the repo [*hammerlab/infiltrate-rnaseq-pipeline*](https://github.com/hammerlab/infiltrate-rnaseq-pipeline).
 
-# How well can we describe (purified) RNA-seq transcript-level data using a generative model?
+# Modeling
 
-There are several variations of models which we have tried to fit to these data. Each model is encoded by a [Stan](http://mc-stan.org) file. In general, I think of each Stan file as a "model", but technically the model (ie likelihood function) is separate from how it's coded. (One can write better or worse Stan code for the same model, which will then fit either well or poorly, so .. for our purposes we will consider them together). 
+Modeling in this folder is trying to answer a question:  How well can we describe (purified) RNA-seq transcript-level data using a generative model?
 
-.. Anyways.
+## Process 
+
+There are several variations of models which we have tried to fit to these data. Each model is encoded by a [Stan](http://mc-stan.org) file. In general, I think of each Stan file as a "model", but technically the model (ie likelihood function) is separate from how it's coded.
 
 Model writing & building is iterative, so each model builds on or improves upon the previous model. In some cases, the model improvement is motivated from checking earlier models. In other cases the improvement is to add structure or additional parameters to be estimated. In still other cases the improvement is optimization.
 
