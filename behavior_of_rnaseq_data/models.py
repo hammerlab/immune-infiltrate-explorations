@@ -113,6 +113,25 @@ def prep_sample_df(df=None, sample_n=None, drop_zero_values=False, y_col='est_co
     return sample_df
 
 
+def split_sample_df(sample_df=None, test_sample_n=1, **kwargs):
+    if sample_df is None:
+        sample_df = cached(prep_sample_df, **kwargs)
+    # split sample_df into training & test sets
+    all_samples = sample_df.drop_duplicates(subset='sample_id')['sample_id']
+    if test_sample_n and test_sample_n > 0:
+        test_samples = all_samples.sample(n=test_sample_n)
+    else:
+        raise ValueError('No test samples identified.')
+    # split sample df into two datasets
+    training_df = sample_df[sample_df['sample_id'].apply(lambda x: x not in test_samples)].copy()
+    test_df = sample_df[sample_df['sample_id'].apply(lambda x: x in test_samples)].copy()
+    for df in [training_df, test_df]:
+        df.sort_values(['gene_id','sample_id'], inplace=True)
+        df['new_sample_cat'] = df['sample_id'].astype('category')
+        df['new_sample_id'] = df['new_sample_cat'].cat.codes+1
+    return (training_df, test_df)
+
+
 def prep_yrep_summary(stan_fit, sample_df, par='y_rep', value_name='pp_est_counts', sample_kwds=None,
                      filter_genes=None):
     yrep = stan_fit.extract(par)[par]
@@ -215,7 +234,7 @@ def prep_cell_data(df, selected_col, selected_values,
     return selected_df.loc[:, fields]
 
 
-def prep_stan_data(sample_df, by='cell_type', cell_features=None):
+def prep_stan_data(sample_df, by='cell_type', cell_features=None, test_df=None):
     x_data = patsy_helper_nointercept(df=sample_df, formula=by)
     cell_features = prep_cell_data(df=sample_df, selected_col=by,
                                    selected_values=list(x_data.columns),
@@ -231,6 +250,16 @@ def prep_stan_data(sample_df, by='cell_type', cell_features=None):
                  'cell_features': cell_features,
                  'M': cell_features.shape[1],
                  }
+    if test_df is not None:
+        x2_data = patsy_helper_nointercept(df=test_df, formula=by)
+        test_data = {'N2': len(test_df.index),
+                     'S2': len(test_df.new_sample_id.unique()),
+                     'gene2': test_df.new_gene_id.values,
+                     'sample2': test_df.new_sample_id.values,
+                     'y2': test_df.est_counts.astype(int).values,
+                     'x2': x2_data, ## for easy access later
+                     }
+        stan_data.update(test_data)
     return stan_data
 
 
