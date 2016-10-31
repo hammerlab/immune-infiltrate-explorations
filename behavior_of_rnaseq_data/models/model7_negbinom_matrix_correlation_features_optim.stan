@@ -37,13 +37,15 @@ parameters {
     vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
 }
 transformed parameters {
+    matrix[G, C] log_theta;
     matrix<lower=0>[G, C] theta;
     { 
         matrix[C, G] tmp_theta;
         for (c in 1:C)
-            tmp_theta[c] = exp(cell_features[c]*theta_coefs_per_gene); // better to do on log scale?
-        theta = tmp_theta' + (diag_pre_multiply(tau, L_Omega) * z)';
+            tmp_theta[c] = cell_features[c]*theta_coefs_per_gene; // better to do on log scale?
+        log_theta = tmp_theta' + (diag_pre_multiply(tau, L_Omega) * z)';
     }
+    theta = exp(log_theta);
 }
 model {
     // priors on components of theta: relative expression per cell type per gene transcript

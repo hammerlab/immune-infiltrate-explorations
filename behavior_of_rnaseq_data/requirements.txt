@@ -1,5 +1,4 @@
 alabaster==0.7.9
-anaconda-client==1.5.2+0.g2c11c88.dirty
 appdirs==1.4.0
 astroid==1.4.8
 Babel==2.3.4
