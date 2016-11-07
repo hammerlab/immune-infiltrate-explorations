@@ -1,6 +1,5 @@
 from fnmatch import fnmatch
 import ntpath
-from cache import cached, cached_stan_fit
 import re
 import patsy
 import seaborn as sns
@@ -10,6 +9,8 @@ from seed import seed
 from data import prep_annotated_data, prep_filename_metadata
 import os
 import logging
+from stancache.stancache import cached, cached_stan_fit
+import cache
 from matplotlib import pyplot as plt
 logger = logging.getLogger(__name__)
 
