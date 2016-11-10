@@ -114,7 +114,7 @@ def prep_sample_df(df=None, sample_n=None, drop_zero_values=False, y_col='est_co
     return sample_df
 
 
-def split_sample_df(sample_df=None, test_sample_n=1, **kwargs):
+def split_sample_df(sample_df=None, test_sample_n=1, train_sample_n=None, **kwargs):
     if sample_df is None:
         sample_df = cached(prep_sample_df, **kwargs)
     # split sample_df into training & test sets
@@ -126,6 +126,10 @@ def split_sample_df(sample_df=None, test_sample_n=1, **kwargs):
     # split sample df into two datasets
     training_df = sample_df[sample_df['sample_id'].apply(lambda x: x not in test_samples)].copy()
     test_df = sample_df[sample_df['sample_id'].apply(lambda x: x in test_samples)].copy()
+    if train_sample_n:
+        train_samples = training_df.drop_duplicates(subset='sample_id')['sample_id']
+        train_samples = train_samples.sample(n=train_sample_n)
+        training_df = training_df[training_df['sample_id'].apply(lambda x: x in train_samples)]
     for df in [training_df, test_df]:
         df.sort_values(['gene_id','sample_id'], inplace=True)
         df['new_sample_cat'] = df['sample_id'].astype('category')

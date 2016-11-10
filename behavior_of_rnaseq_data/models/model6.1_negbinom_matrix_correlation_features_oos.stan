@@ -17,50 +17,65 @@ data {
     
     // group-level predictors for each class C
     matrix[C, M] cell_features; 
+
+    // out of sample estimates, with unknown comp
+    int<lower=1> N2;           // number of records in out of sample (UNK)
+    int<lower=1> S2;           // number of samples in UNK set
+    int<lower=1, upper=G> gene2[N2];    // gene id for UNK data (corresponding to IDs above)
+    int<lower=1, upper=S2> sample2[N2]; // sample id for each UNK sample (separate from above)
+    int<lower=0> y2[N2];       // data for UNK set 
 }
 transformed data {
     int sample_y[S, G];    // array (size SxG) of ints
     vector[C] sample_x[S]; // array (size S) of vectors[C]
+    int sample2_y[S2, G];
     for (n in 1:N) {
         sample_y[sample[n], gene[n]] = y[n];
         sample_x[sample[n]] = x[n,];
     }
+    for (n in 1:N2) {
+        sample2_y[sample2[n], gene2[n]] = y2[n];
+    }
 }
 parameters {
-    cholesky_factor_corr[C] L_Omega;
-    matrix[C, G] z;
-    //corr_matrix[C] Omega;        // degree of correlation among loading factors for each cell type
-    vector<lower=0>[C] tau;        // scale for each cell type - multiplied (on diagonal) with Omega
-    matrix[M, G] theta_coefs_per_gene;
+    //cholesky_factor_corr[C] L_Omega;
+    corr_matrix[C] Omega;        // degree of correlation among loading factors for each cell type
+    vector<lower=0>[C] tau;      // scale for each cell type - multiplied (on diagonal) with Omega
+    matrix<lower=0>[G, C] theta; // loading factors for each gene, for each cell type
+    vector[C] theta_mu;          // mean expression level for each cell type
+    vector[M] theta_coefs;
+    vector[M] theta_coefs_per_gene[G];
     
     vector[G] log_gene_base;     // constant intercept expression level for each gene, irrespective of cell type
     vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
-}
-transformed parameters {
-    matrix[G, C] log_theta;
-    matrix<lower=0>[G, C] theta;
-    { 
-        matrix[C, G] tmp_theta;
-        for (c in 1:C)
-            tmp_theta[c] = cell_features[c]*theta_coefs_per_gene; // better to do on log scale?
-        log_theta = tmp_theta' + (diag_pre_multiply(tau, L_Omega) * z)';
-    }
-    theta = exp(log_theta);
+    simplex[C] sample2_x[S2];     // inferred sample2 compositions (simplex type enforces sum-to-one)
 }
 model {
-    // priors on components of theta: relative expression per cell type per gene transcript
+    matrix[C, C] sigma_theta;
+    sigma_theta = quad_form_diag(Omega, tau);
+    // estimate theta: relative expression per cell type per gene transcript
     tau ~ cauchy(0, 2.5);
-    to_vector(z) ~ normal(0, 1);
-    L_Omega ~ lkj_corr_cholesky(2);
-    to_vector(theta_coefs_per_gene) ~ normal(0, 1);
-    
-    // estimate sample_y: observed expression for a sample (possibly a mixture)
+    Omega ~ lkj_corr(2);
+    theta_mu ~ normal(0, 1);
+    theta_coefs ~ normal(0, 1);
+    for (g in 1:G) {
+        vector[C] theta_tmp; // temporary predictor for cell-gene-specific expression level
+        theta_coefs_per_gene[g] ~ normal(0, 1);
+        theta_tmp = theta_mu + cell_features*(theta_coefs + theta_coefs_per_gene[g]);
+        theta[g] ~ multi_normal(theta_tmp, sigma_theta);
+    }
+    // estimate sample_y: obseved expression for a sample (possibly a mixture)
     log_gene_base ~ normal(0, 1);
     gene_phi ~ normal(0, 1);
     for (s in 1:S) {
         vector[G] log_expected_rate;
         log_expected_rate = log_gene_base + log(theta*sample_x[s]);
         sample_y[s] ~ neg_binomial_2_log(log_expected_rate, gene_phi);
+    }
+    for (s in 1:S2) {
+        vector[G] log_expected_rate;
+        log_expected_rate = log_gene_base + log(theta*sample2_x[s]);
+        sample2_y[s] ~ neg_binomial_2_log(log_expected_rate, gene_phi);
     }
 }
 generated quantities {
