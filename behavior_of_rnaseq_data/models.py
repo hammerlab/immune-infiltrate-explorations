@@ -239,7 +239,7 @@ def prep_cell_data(df, selected_col, selected_values,
     return selected_df.loc[:, fields]
 
 
-def prep_stan_data(sample_df, by='cell_type', cell_features=None, test_df=None):
+def prep_stan_data(sample_df, by='cell_type', cell_features=None, test_df=None, **kwargs):
     x_data = patsy_helper_nointercept(df=sample_df, formula=by)
     cell_features = prep_cell_data(df=sample_df, selected_col=by,
                                    selected_values=list(x_data.columns),
@@ -265,6 +265,8 @@ def prep_stan_data(sample_df, by='cell_type', cell_features=None, test_df=None):
                      'x2': x2_data, ## for easy access later
                      }
         stan_data.update(test_data)
+    if dict(**kwargs):
+        stan_data.update(dict(**kwargs))
     return stan_data
 
 
