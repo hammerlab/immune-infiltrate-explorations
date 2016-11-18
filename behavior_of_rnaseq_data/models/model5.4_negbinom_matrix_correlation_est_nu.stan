@@ -28,7 +28,7 @@ parameters {
     vector<lower=0>[C] tau;      // scale for each cell type - multiplied (on diagonal) with Omega
     matrix<lower=0>[G, C] theta; // loading factors for each gene, for each cell type
     vector[C] theta_mu;
-    real<lower=0> nu;
+    real<lower=1> nu;
     vector[G] log_gene_base;     // constant intercept expression level for each gene, irrespective of cell type
     vector<lower=0>[G] gene_phi;          // overdispersion parameter per transcript (for now)
 }
