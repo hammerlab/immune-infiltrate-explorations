@@ -1,2 +1,4 @@
 data/
-.cached-models/
+archive/
+.cached_models
+.execute_notebooks.sh
