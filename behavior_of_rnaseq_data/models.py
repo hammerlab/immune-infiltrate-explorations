@@ -9,7 +9,7 @@ from seed import seed
 from data import prep_annotated_data, prep_filename_metadata
 import os
 import logging
-from stancache.stancache import cached, cached_stan_fit
+from stancache.stancache import cached, cached_stan_fit, cached_stan_file
 import cache
 from matplotlib import pyplot as plt
 logger = logging.getLogger(__name__)
@@ -239,7 +239,7 @@ def prep_cell_data(df, selected_col, selected_values,
     return selected_df.loc[:, fields]
 
 
-def prep_stan_data(sample_df, by='cell_type', cell_features=None, test_df=None):
+def prep_stan_data(sample_df, by='cell_type', cell_features=None, test_df=None, **kwargs):
     x_data = patsy_helper_nointercept(df=sample_df, formula=by)
     cell_features = prep_cell_data(df=sample_df, selected_col=by,
                                    selected_values=list(x_data.columns),
@@ -265,6 +265,8 @@ def prep_stan_data(sample_df, by='cell_type', cell_features=None, test_df=None):
                      'x2': x2_data, ## for easy access later
                      }
         stan_data.update(test_data)
+    if dict(**kwargs):
+        stan_data.update(dict(**kwargs))
     return stan_data
 
 
