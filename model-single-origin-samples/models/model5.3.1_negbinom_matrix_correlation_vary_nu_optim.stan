@@ -1,5 +1,50 @@
 ## neg binom parameterization
 ## estimate correlation matrix among cell types
+functions {
+  /* 
+    ## per : https://groups.google.com/forum/?fromgroups#!searchin/stan-users/neg_binomial_2_log_rng/stan-users/rgpHgBtFS3k/A7GqglKOAQAJ
+    ## neg_binomial_2_rng(mu,psi) as suggested by Ben: 
+    real gamma_temp; 
+    if (is_inf(psi)) 
+      gamma_temp <- mu; 
+    else 
+      gamma_temp <- gamma_rng(psi, psi / mu); 
+    if (gamma_temp < pow(2.0, 30.0)) 
+      result <- poisson_rng(gamma_temp); 
+    else 
+      result <- normal_rng(gamma_temp, sqrt(gamma_temp)); 
+  */
+  real alt_neg_binom_2_rng(real mu, real psi) {
+    real gamma_temp; 
+    real result;
+    
+    if (is_nan(psi)) 
+      gamma_temp = mu;
+    else if (is_inf(psi)) 
+      gamma_temp = mu; 
+    else if (is_nan(psi / mu))
+      gamma_temp = mu;
+    else if (is_inf(psi / mu))
+      gamma_temp = mu;
+    else if (psi / mu < 0)
+      gamma_temp = mu;
+    else 
+      gamma_temp = gamma_rng(psi, psi / mu);
+      
+    if (is_nan(gamma_temp) || is_inf(gamma_temp) || gamma_temp < 0)
+      result = -1;
+    else if (gamma_temp < pow(2.0, 30.0)) 
+      result = poisson_rng(gamma_temp);
+    else 
+      result = normal_rng(gamma_temp, sqrt(gamma_temp)); 
+    
+    if (result > 2^31) {
+      result = 2^31;
+    }
+    
+    return floor(result);
+  }
+}
 data {
     // dimensions
     int<lower=1> N;  // N obs
@@ -58,13 +103,13 @@ model {
     }
 }
 generated quantities {
-    int y_rep[N];
+    real y_rep[N];
     real log_lik[N];
     
     for (n in 1:N) {
         real log_expected_rate;
         log_expected_rate = log_gene_base[gene[n]] + log(theta[gene[n], ]*x[n]);
-        y_rep[n] = neg_binomial_2_log_rng(log_expected_rate, gene_phi[gene[n]]);
+        y_rep[n] = alt_neg_binom_2_rng(exp(log_expected_rate), gene_phi[gene[n]]);
         log_lik[n] = neg_binomial_2_log_lpmf(y[n] | log_expected_rate, gene_phi[gene[n]]);
     }
 }
