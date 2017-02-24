@@ -53,3 +53,16 @@ The line above will execute each of the `0.85*.ipynb` files in sequential order,
 
 What's cool about this, is that **the models are cached** (hooray!). This means that, the next day, you can re-execute the notebook and it will be reasonably fast.
 
+## Mount the NFS disk containing model cache 
+
+There is a "modelcache" NFS disk which I mount to `/mnt/modelcache`; the VM is [checkpoint-model-cache-vm](https://console.cloud.google.com/compute/instancesDetail/zones/us-east1-b/instances/checkpoint-model-cache-vm?project=pici-1286) in zone `us-east1-b`. If your VM is in this zone, you can mount it by first creating the /mnt/modelcache directory, and then adding the following line to your `/etc/fstab`:
+
+```
+checkpoint-model-cache-vm:/modelcache /mnt/modelcache nfs rw 0 0
+```
+
+You would then run `sudo mount /mnt/modelcache`.
+
+Note that the files are also synced periodically to the google bucket `gs://jb-hammerlab/immuneinf`
+
+
