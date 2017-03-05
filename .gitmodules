@@ -1,0 +1,3 @@
+[submodule "upenn-tex"]
+	path = upenn-tex
+	url = git@github.com:hammerlab/upenn-tex.git
