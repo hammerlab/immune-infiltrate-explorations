@@ -1,0 +1,1 @@
+../curated_data/pure_samples/cibersort/LM22.txt
