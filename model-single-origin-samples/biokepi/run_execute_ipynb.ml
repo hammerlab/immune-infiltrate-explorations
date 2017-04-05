@@ -14,7 +14,7 @@ let (//) = Filename.concat
 let install_path = install_tools_path // "conda"
 let ii_conda_requirements_path = "/nfs-pool/ii/conda_requirements.txt"
 let pip_requirements_path = "/nfs-pool/ii/pip_requirements.txt"
-let reference_build = "b37"
+let reference_build = "b38"
 
 (* Create a new Conda env *)
 let conda_env =
