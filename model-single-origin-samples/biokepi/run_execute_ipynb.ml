@@ -76,7 +76,7 @@ let my_notebook =
 
 let timeout =
   let doc="The maximum time (in seconds) each notebook cell is allowed to run. If the execution takes longer an exception will be raised. Can set to -1 for no maximum timeout." in
-  Arg.(required & pos 1 (some int) None & info [] ~docv:"TIMEOUT_SECS" ~doc)
+  Arg.(value & pos 1 int -1 None & info [] ~docv:"TIMEOUT_SECS" ~doc)
 
 let cmd =
   let doc = "Execute jupyter notebook. Saves to {mynotebook}.nbconvert.ipynb" in
