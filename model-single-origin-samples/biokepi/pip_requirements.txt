@@ -1,0 +1,3 @@
+pyensembl
+patsy
+stancache
