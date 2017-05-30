@@ -287,7 +287,7 @@ def _list_files_in_path(path, pattern="*.stan"):
 def _find_directory(d, description=''):
     my_dir = d
     if not os.path.exists(my_dir):
-        my_dir = os.path_join(_this_dir, d)
+        my_dir = os.path.join(_this_dir, d)
     if not os.path.exists(my_dir):
         raise ValueError('{} directory ({}) not found'.format(description, d))
     return my_dir
