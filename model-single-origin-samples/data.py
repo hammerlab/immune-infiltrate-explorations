@@ -8,15 +8,18 @@ from subprocess import call
 import tarfile
 import logging 
 from cache import cached
+import os, sys
+
+sys.path.insert(0, os.path.abspath(".."))
 
 logger = logging.getLogger(__name__)
 
-def download(s, data_dir='./data'):
+def download(s, data_dir='/modelcache/eliza-immune/immune-infiltrate-explorations/model-single-origin-samples/data'):
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
     ## download & extract data tar file
     data_tar_file = '{}.tar.gz'.format(s)
-    call(['gsutil', 'cp', 'gs://mz-hammerlab/output/{}'.format(data_tar_file), data_dir])
+    call(['sudo', 'gsutil', 'cp', 'gs://mz-hammerlab/output/{}'.format(data_tar_file), data_dir])
     data_tar = tarfile.open(os.path.join(data_dir, data_tar_file))
     data_tar.extractall(path=data_dir)
     data_tar.close()
@@ -37,8 +40,9 @@ def load_multiple_files(files, ensembl_release=cached_release(79)):
     """
     dfs = []
     for ix, f in enumerate(files):
-        filename = 'data/output/%s/abundance.tsv' % f
+        filename = '/modelcache/eliza-immune/immune-infiltrate-explorations/model-single-origin-samples/data/output/%s/abundance.tsv' % f
         if not os.path.exists(filename):
+            print("{} did not exist".format(filename))
             download(f)
         df = pd.read_csv(filename, sep='\t')
         df['sample_id'] = ix+1
@@ -69,7 +73,7 @@ def split_rows_by(df, field, suffix='', by=','):
 
 def prep_filename_metadata(datafiles=None):
     if datafiles is None:
-        datafiles = pd.read_csv('data_filenames.tsv', sep='\t')
+        datafiles = pd.read_csv('/modelcache/eliza-immune/immune-infiltrate-explorations/model-single-origin-samples/data_filenames.tsv', sep='\t')
     df = datafiles[['filename', 'SubSet', 'Antibody']].copy()
     subsets = split_rows_by(df, 'Antibody')
     #subsets['antibody'] = subsets.Antibody.replace(to_replace='.$', value='', inplace=False, regex=True)
