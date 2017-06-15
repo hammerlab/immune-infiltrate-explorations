@@ -90,7 +90,7 @@ let submit_job  =
           Biokepi.Tools.Cmdstan.(fit_model
                                               ~stan_model:(ii_home_dir // stan_model)
                                               ~fit_method:fit_method
-                                              ~data_file:(rdump_dir // (String.concat [stan_model]; ".data.R"]))
+                                              ~data_file:(rdump_dir // (String.concat [stan_model; ".data.R"]))
                                               ~output_file:output_file
                                               ~run_with:biokepi_machine));
       ]
