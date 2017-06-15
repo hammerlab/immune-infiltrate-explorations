@@ -97,7 +97,7 @@ let submit_job =
 
 (*Command line options*)
 let stan_model =
-  let doc = "Path (name) of stan model to build, without .stan suffix"
+  let doc = "Path (name) of stan model to build, without .stan suffix" in
   Arg.(required & pos 1 (some string) None & info [] ~docv:"STAN_MODEL" ~doc)
 
 let python_script =
