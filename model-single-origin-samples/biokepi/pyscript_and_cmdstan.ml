@@ -22,10 +22,10 @@ let ii_home_dir = "/modelcache/eliza-immune/immune-infiltrate-explorations/model
 (* let stan_model_path = ii_home_dir // stan_model *)
 let model_dir = ii_home_dir // "models"
 let rdump_dir = ii_home_dir // "rdump-data"
-
+let output_dir = ii_home_dir // "model_output"
 (* let data_file = rdump_dir // (String.concat [stan_model]; ".data.R"]) *)
 
-let model_output_file = ii_home_dir // "model_output/" // (String.concat [stan_model; "_output.csv"])
+(* let model_output_file = ii_home_dir // "model_output/" // (String.concat [stan_model; "_output.csv"]) *)
 
 (* Create a new Conda env *)
 let conda_env =
@@ -95,7 +95,7 @@ let submit_job
                                               ~stan_model:(ii_home_dir // stan_model)
                                               ~fit_method:"variational"
                                               ~data_file:(rdump_dir // (stan_model ^ ".data.R"))
-                                              ~output_file:model_output_file
+                                              ~output_file:(output_dir // (stan_model ^ "_output.csv"))
                                               ~run_with:biokepi_machine));
       ]
   in
