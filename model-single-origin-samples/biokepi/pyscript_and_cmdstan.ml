@@ -62,7 +62,8 @@ let ii_node =
 (* end of ii install *)
 
 (* Runs the python script that should create {modelname}.data.R as witness file *)
-let python_rdata_node =
+let python_rdata_node
+    python_script =
   workflow_node (single_file ~host data_file)
     ~name:("Execute python script, " ^ (Filename.basename python_script))
     ~edges:[
@@ -80,18 +81,21 @@ let python_rdata_node =
 
 (* Build and train the model *)
 
-let submit_job  =
+let submit_job
+  python_script
+  stan_model
+  =
   let master_node =
     workflow_node without_product
-      ~name:("Run variational inference")
+      ~name:("Run rdump script " ^ python_script ^ ", train model " ^ stan_model)
       ~edges:[
-        depends_on python_rdata_node;
+        depends_on python_rdata_node ~python_script:python_script;
         depends_on (
           Biokepi.Tools.Cmdstan.(fit_model
                                               ~stan_model:(ii_home_dir // stan_model)
-                                              ~fit_method:fit_method
-                                              ~data_file:(rdump_dir // (String.concat [stan_model; ".data.R"]))
-                                              ~output_file:output_file
+                                              ~fit_method:"variational"
+                                              ~data_file:(rdump_dir // (stan_model ^ ".data.R"))
+                                              ~output_file:model_output_file
                                               ~run_with:biokepi_machine));
       ]
   in
@@ -99,12 +103,26 @@ let submit_job  =
 
 (*Command line options*)
 let stan_model =
-  let doc = "Path (name) of stan model to build, without .stan suffix" in
+  let doc = "Name of stan model to build within immune-infiltrate model directory, without .stan suffix" in
   Arg.(required & pos 1 (some string) None & info [] ~docv:"STAN_MODEL" ~doc)
 
 let python_script =
   let doc = "Path to .py you want to execute" in
   Arg.(required & pos 0 (some string) None & info [] ~docv:"PYTHON_FILE" ~doc)
+
+let cmd =
+  let doc = "Extract and save rdump; train stan model on it" in
+  let version = "0.0.0" in
+  let man = [
+    `S "Description";
+    `P "$(tname) gets rdata in python and trains stan model via cmdstan";
+  ] in
+  Term.(const
+          submit_job
+        $ python_script
+        $ stan_model
+       ),
+  Term.(info "get rdata, train model" ~version ~doc ~man)
 
 let () =
   match Cmdliner.Term.eval cmd with
