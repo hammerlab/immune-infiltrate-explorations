@@ -23,9 +23,8 @@ let ii_home_dir = "/modelcache/eliza-immune/immune-infiltrate-explorations/model
 let model_dir = ii_home_dir // "models"
 let rdump_dir = ii_home_dir // "rdump-data"
 let output_dir = ii_home_dir // "model_output"
-(* let data_file = rdump_dir // (String.concat [stan_model]; ".data.R"]) *)
 
-(* let model_output_file = ii_home_dir // "model_output/" // (String.concat [stan_model; "_output.csv"]) *)
+let tmp_data_file_witness = rdump_dir // "model6.2.data.R"
 
 (* Create a new Conda env *)
 let conda_env =
@@ -63,8 +62,9 @@ let ii_node =
 
 (* Runs the python script that should create {modelname}.data.R as witness file *)
 let python_rdata_node
-    python_script =
-  workflow_node (single_file ~host data_file)
+    python_script
+    =
+  workflow_node (single_file ~host tmp_data_file_witness)
     ~name:("Execute python script, " ^ (Filename.basename python_script))
     ~edges:[
       depends_on (Biokepi.Tools.Pyensembl.cache_genome ~run_with:biokepi_machine ~reference_build);
