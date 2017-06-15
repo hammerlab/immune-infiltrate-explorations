@@ -19,10 +19,11 @@ let pip_requirements_path = ii_dir // "pip_requirements.txt"
 let reference_build = "b38"
 
 let ii_home_dir = "/modelcache/eliza-immune/immune-infiltrate-explorations/model-single-origin-samples/"
-let stan_model_path = ii_home_dir // stan_model
+(* let stan_model_path = ii_home_dir // stan_model *)
 let model_dir = ii_home_dir // "models"
 let rdump_dir = ii_home_dir // "rdump-data"
-let data_file = rdump_dir // (String.concat [stan_model_path; ".data.R"])
+
+(* let data_file = rdump_dir // (String.concat [stan_model]; ".data.R"]) *)
 
 let model_output_file = ii_home_dir // "model_output/" // (String.concat [stan_model; "_output.csv"])
 
@@ -79,16 +80,17 @@ let python_rdata_node =
 
 (* Build and train the model *)
 
-let submit_job =
+let submit_job  =
   let master_node =
     workflow_node without_product
       ~name:("Run variational inference")
       ~edges:[
+        depends_on python_rdata_node;
         depends_on (
           Biokepi.Tools.Cmdstan.(fit_model
-                                              ~stan_model:stan_model_path
+                                              ~stan_model:(ii_home_dir // stan_model)
                                               ~fit_method:fit_method
-                                              ~data_file:data_file
+                                              ~data_file:(rdump_dir // (String.concat [stan_model]; ".data.R"]))
                                               ~output_file:output_file
                                               ~run_with:biokepi_machine));
       ]
