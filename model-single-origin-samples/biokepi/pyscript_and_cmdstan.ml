@@ -92,9 +92,10 @@ let submit_job
        depends_on (python_rdata_node python_script);
         depends_on (
           Biokepi.Tools.Cmdstan.(fit_model
-                                              ~stan_model:(ii_home_dir // stan_model)
+                                              ~stan_model:(model_dir // stan_model)
                                               ~fit_method:"variational"
-                                              ~data_file:(rdump_dir // (stan_model ^ ".data.R"))
+					      ~data_file:tmp_data_file_witness
+                                              (* ~data_file:(rdump_dir // (stan_model ^ ".data.R")) *)
                                               ~output_file:(output_dir // (stan_model ^ "_output.csv"))
                                               ~run_with:biokepi_machine));
       ]
