@@ -87,9 +87,9 @@ let submit_job
   =
   let master_node =
     workflow_node without_product
-      ~name:("Run rdump script " ^ python_script ^ ", train model " ^ stan_model)
-      ~edges:[
-        depends_on python_rdata_node ~python_script:python_script;
+    ~name:("Run rdump script " ^ python_script ^ ", train model " ^ stan_model)
+    ~edges:[
+       depends_on (python_rdata_node python_script);
         depends_on (
           Biokepi.Tools.Cmdstan.(fit_model
                                               ~stan_model:(ii_home_dir // stan_model)
