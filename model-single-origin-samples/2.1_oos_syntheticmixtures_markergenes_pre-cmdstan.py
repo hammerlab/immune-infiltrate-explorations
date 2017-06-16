@@ -19,15 +19,10 @@ from time import time
 from datetime import timedelta
 import pickle
 import dill
-import sys
-from os import getcwd, path
-sys.path.append(path.dirname(getcwd()))
 
 # In[2]:
-ii_dir = "/modelcache/eliza-immune/immune-infiltrate-explorations"
-this_dir = "{}/model-single-origin-samples".format(ii_dir)
 
-bindea = pd.read_csv(path.join(ii_dir, 'curated_data/pure_samples/bindea/Bindea Immunome - Bindea paper.csv'))
+bindea = pd.read_csv('../curated_data/pure_samples/bindea/Bindea Immunome - Bindea paper.csv')
 bindea.head()
 
 
@@ -342,33 +337,9 @@ stan_data.update(test_data)
 
 stan_data['G']
 
-rdump_filename = path.join(this_dir, "rdump-data/{}.data.R".format(model_name))
+rdump_filename = "./rdump-data/{}.data.R".format(model_name)
 
-import csv
-
-w = csv.writer(open("stan_data.csv", "w"))
-for key, val in stan_data.items():
-    w.writerow([key, val])
-    print(key)
-    print(type(val))
-
-stan_data_reformat = {}
-#indices = range(len(stan_data.keys()))
-
-for k, v in stan_data.items():
-    if type(v) is pd.DataFrame:
-        stan_data_reformat[k] = v.as_matrix()
-    else:
-        stan_data_reformat[k] = v
-
-#    stan_data_integer_keys[i] = stan_data[k]
-
-#stan_data_ndarray = pd.DataFrame(stan_data).as_matrix()
-
-pystan.misc.stan_rdump(data=stan_data_reformat, filename=rdump_filename)
-
-#pystan.misc.stan_rdump(data=stan_data, filename=rdump_filename)
-#pystan.misc.stan_rdump(data=stan_data_integer_keys, filename=rdump_filename)
+pystan.misc.stan_rdump(data=stan_data, filename=rdump_filename)
 
 # In[74]:
 
