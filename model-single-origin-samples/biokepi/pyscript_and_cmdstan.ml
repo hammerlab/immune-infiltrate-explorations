@@ -81,22 +81,43 @@ let python_rdata_node
 
 (* Build and train the model *)
 
+let stan_summary_node ~model_output_csv ~summary_csv ~(run_with : Machine.t) =
+  let open KEDSL in
+  let cmdstan = Machine.get_tool run_with Machine.Tool.Default.cmdstan in
+  workflow_node (single_file ~host:Machine.(as_host run_with) summary_csv)
+    ~name:("stansummary " ^ model_output_csv ^ " to " ^ summary_csv)
+    ~edges: [
+      depends_on Machine.Tool.(ensure cmdstan);
+    ]
+    ~make:(Machine.run_program run_with
+             Program.(
+               Machine.Tool.init cmdstan
+               && shf "bin/stansummary %s --csv_file=%s" model_output_csv summary_csv
+             )
+          )
+
 let submit_job
   python_script
   stan_model
   =
+  let model_output_file = output_dir // (stan_model ^ "_output.csv") in
+  let summary_csv = output_dir // (stan_model ^ "_stansummary.csv") in
   let master_node =
     workflow_node without_product
       ~name:("Run rdump script " ^ python_script ^ ", train model " ^ stan_model)
       ~edges:[
-        depends_on python_rdata_node ~python_script:python_script;
+        depends_on (python_rdata_node python_script);
         depends_on (
+
           Biokepi.Tools.Cmdstan.(fit_model
                                               ~stan_model:(ii_home_dir // stan_model)
                                               ~fit_method:"variational"
                                               ~data_file:(rdump_dir // (stan_model ^ ".data.R"))
-                                              ~output_file:(output_dir // (stan_model ^ "_output.csv"))
+                                              ~output_file:model_output_file)
                                               ~run_with:biokepi_machine));
+        depends_on (stan_summary_node
+                      ~model_output_csv:model_output_file
+                      ~summary_csv:summary_csv);
       ]
   in
   Ketrew.Client.submit_workflow master_node
