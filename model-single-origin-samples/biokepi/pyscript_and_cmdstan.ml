@@ -84,7 +84,7 @@ let python_rdata_node
 let stan_summary_node ~model_output_csv ~summary_csv ~(run_with : Machine.t) =
   let open KEDSL in
   let cmdstan = Machine.get_tool run_with Machine.Tool.Default.cmdstan in
-  workflow_node (single_file ~host:Machine.(as_host run_with) summary_csv)
+  workflow_node (single_file ~host: summary_csv)
     ~name:("stansummary " ^ model_output_csv ^ " to " ^ summary_csv)
     ~edges: [
       depends_on Machine.Tool.(ensure cmdstan);
