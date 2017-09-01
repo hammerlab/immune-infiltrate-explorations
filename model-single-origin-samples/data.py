@@ -37,7 +37,7 @@ def load_multiple_files(files, ensembl_release=cached_release(79)):
     """
     dfs = []
     for ix, f in enumerate(files):
-        filename = 'data/output/%s/abundance.tsv' % f
+        filename = '/data/output/%s/abundance.tsv' % f
         if not os.path.exists(filename):
             download(f)
         df = pd.read_csv(filename, sep='\t')

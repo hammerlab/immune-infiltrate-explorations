@@ -89,8 +89,24 @@ def compute_rank_within_group(df, group_by, rank_of):
     df['{}_rank'.format(rank_of)] = df.groupby(group_by)[rank_of].rank()
     return df
 
+def gene_list_from_sample_df(sample_df):
+    """
+    extracts gene list from a sample_df produced by prep_sample_df
+    """
+    return sample_df.gene_name.unique().tolist()
 
-def prep_sample_df(df=None, sample_n=None, drop_zero_values=False, y_col='est_counts'):
+
+def prep_sample_df(df=None, 
+                    sample_n=None,
+                    drop_zero_values=False,
+                    y_col='est_counts',
+                    sample_gene_list=None):
+    """
+    Generates training dataframe from [y_col]. 
+    If [sample_n] is set, only that many genes will be sampled. Otherwise all genes are returned.
+    [sample_gene_list] overrides [sample_n]. If [sample_gene_list] is set, only those genes will be included in the output.
+    See companion method gene_list_from_sample_df to extract a gene list that can be inserted here.
+    """
     if df is None:
         df = cached(prep_annotated_data)
     # optionally limit to genes with at least one observed count
@@ -99,7 +115,9 @@ def prep_sample_df(df=None, sample_n=None, drop_zero_values=False, y_col='est_co
     else:
         all_genes = df.drop_duplicates(subset='gene_name').loc[:,'gene_name']
     # optionally sample from genes
-    if sample_n:
+    if sample_gene_list:
+        sampled_genes = all_genes[all_genes.isin(sample_gene_list)]
+    elif sample_n:
         sampled_genes = all_genes.sample(n=sample_n)
     else:
         sampled_genes = all_genes
