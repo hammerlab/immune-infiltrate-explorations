@@ -10,10 +10,10 @@ data {
     int<lower=0> M; // number of cell-level predictors 
    
     // data for each gene*sample
-    int<lower=1, upper=G> gene[N];    // gene id for each obs
-    int<lower=1, upper=S> sample[N];  // sample id for each obs
-    vector<lower=0, upper=1>[C] x[N]; // map each obs to each class (0:'- or ?', 1:'+')
-    int<lower=0> y[N];                // count/tpm for each obs
+    // int<lower=1, upper=G> gene[N];    // gene id for each obs
+    // int<lower=1, upper=S> sample[N];  // sample id for each obs
+    // vector<lower=0, upper=1>[C] x[N]; // map each obs to each class (0:'- or ?', 1:'+')
+    // int<lower=0> y[N];                // count/tpm for each obs
     
     // group-level predictors for each class C
     matrix[C, M] cell_features; 
@@ -42,14 +42,14 @@ data {
     vector[G] gene_phi_std;
 }
 transformed data {
-    int sample_y[S, G];    // array (size SxG) of ints
-    vector[C] sample_x[S]; // array (size S) of vectors[C]
+    // int sample_y[S, G];    // array (size SxG) of ints
+    // vector[C] sample_x[S]; // array (size S) of vectors[C]
     int sample2_y[S2, G];
     int<lower=1> nu;
-    for (n in 1:N) {
-        sample_y[sample[n], gene[n]] = y[n];
-        sample_x[sample[n]] = x[n,];
-    }
+    // for (n in 1:N) {
+        // sample_y[sample[n], gene[n]] = y[n];
+        // sample_x[sample[n]] = x[n,];
+    // }
     for (n in 1:N2) {
         sample2_y[sample2[n], gene2[n]] = y2[n];
     }
@@ -93,11 +93,11 @@ model {
     // estimate sample_y: observed expression for a sample (possibly a mixture)
     log_gene_base ~ normal(log_gene_base_mu, log_gene_base_std);
     gene_phi ~ normal(gene_phi_mu, gene_phi_std);
-    for (s in 1:S) {
-        vector[G] log_expected_rate;
-        log_expected_rate = log_gene_base + log(theta*sample_x[s]);
-        sample_y[s] ~ neg_binomial_2_log(log_expected_rate, gene_phi);
-    }
+    // for (s in 1:S) {
+        // vector[G] log_expected_rate;
+        // log_expected_rate = log_gene_base + log(theta*sample_x[s]);
+        // sample_y[s] ~ neg_binomial_2_log(log_expected_rate, gene_phi);
+    // }
     
     // estimate sample2_y: observed expression for a sample of unknown composition
     for (s in 1:S2) {
@@ -107,17 +107,17 @@ model {
     }
 }
 generated quantities {
-    int y_rep[N];
-    real log_lik[N];
+    // int y_rep[N];
+    // real log_lik[N];
     matrix[C,C] Omega;
     matrix[C,C] tau;
     Omega = multiply_lower_tri_self_transpose(Omega_L);
     tau = quad_form_diag(Omega_L, Omega_sigma);
     
-    for (n in 1:N) {
-        real log_expected_rate;
-        log_expected_rate = log_gene_base[gene[n]] + log(theta[gene[n], ]*x[n]);
-        y_rep[n] = neg_binomial_2_log_rng(log_expected_rate, gene_phi[gene[n]]);
-        log_lik[n] = neg_binomial_2_log_lpmf(y[n] | log_expected_rate, gene_phi[gene[n]]);
-    }
+    // for (n in 1:N) {
+        // real log_expected_rate;
+        // log_expected_rate = log_gene_base[gene[n]] + log(theta[gene[n], ]*x[n]);
+        // y_rep[n] = neg_binomial_2_log_rng(log_expected_rate, gene_phi[gene[n]]);
+        // log_lik[n] = neg_binomial_2_log_lpmf(y[n] | log_expected_rate, gene_phi[gene[n]]);
+    // }
 }
