@@ -2,9 +2,9 @@
 ## estimate correlation matrix among cell types
 data {
     // dimensions
-    int<lower=1> N;  // N obs
+    // int<lower=1> N;  // N obs
     int<lower=1> G;  // N genes
-    int<lower=1> S;  // N samples
+    // int<lower=1> S;  // N samples
     int<lower=0> C;  // N classes (e.g. B-cell, T-cell, B_Naive, CD5, CD45RO, etc)
                      //     note: classes should be mutually exclusive. Each row here should sum to 1
     int<lower=0> M; // number of cell-level predictors 
