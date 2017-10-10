@@ -28,8 +28,8 @@ data {
     // informative priors 
     vector[C] theta_mu_mu; // mean of normal distribution
     vector[C] theta_mu_std; // standard deviation of normal distribution
-    vector[C] theta_coefs_raw_mu;
-    vector[C] theta_coefs_raw_std;
+    vector[M] theta_coefs_raw_mu;
+    vector[M] theta_coefs_raw_std;
     vector[C] Omega_sigma_mu;
     vector[C] Omega_sigma_std;
     matrix[C, C] Omega_L_mu;
