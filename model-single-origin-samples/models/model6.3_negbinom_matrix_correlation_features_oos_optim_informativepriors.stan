@@ -1,5 +1,8 @@
-## neg binom parameterization
-## estimate correlation matrix among cell types
+// neg binom parameterization
+// estimate correlation matrix among cell types
+
+// model6.3: informative priors (derives from model 6.2)
+
 data {
     // dimensions
     // int<lower=1> N;  // N obs

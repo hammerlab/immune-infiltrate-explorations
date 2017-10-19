@@ -1,5 +1,9 @@
 // neg binom parameterization
 // estimate correlation matrix among cell types
+
+// model6.3.1:
+// temporary revision of model6.3 (informative priors) to not create priors but just hardcode parameters to passed-in data values
+
 data {
     // dimensions
     // int<lower=1> N;  // N obs
