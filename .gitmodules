@@ -1,0 +1,3 @@
+[submodule "model-single-origin-samples/infino-rcc"]
+	path = model-single-origin-samples/infino-rcc
+	url = git@github.com:hammerlab/infino-rcc.git
