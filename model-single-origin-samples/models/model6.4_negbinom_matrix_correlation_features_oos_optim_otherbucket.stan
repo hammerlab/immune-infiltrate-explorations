@@ -62,7 +62,7 @@ parameters {
     simplex[C] sample2_x[S2];     // inferred sample2 compositions (simplex type enforces sum-to-one)
 
     vector<lower=0, upper=1>[S2] unknown_prop; // proportion of each test sample that is of unknown cell type
-    vector[S2] other_log_contribution_per_gene[G]; // for each test sample, per-transcript contribution of unknown cell type
+    vector[G] other_log_contribution_per_gene[S2]; // for each test sample, per-transcript contribution of unknown cell type
 }
 transformed parameters {
     vector[M] theta_coefs[G];
