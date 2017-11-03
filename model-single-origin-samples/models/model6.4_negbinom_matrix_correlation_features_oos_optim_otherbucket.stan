@@ -93,12 +93,13 @@ model {
     
     // estimate sample2_y: observed expression for a sample of unknown composition
     unknown_prop ~ beta(5, 5); // not sure about this, maybe Beta(1,1) uniform?
-    other_log_contribution_per_gene ~ normal(0, 1);
+    
 
     for (s in 1:S2) {
         vector[G] log_expected_rate;
+        other_log_contribution_per_gene[s] ~ normal(0, 1);
         // TODO: use logmix() instead after `log_gene_base + ` in next line.
-        log_expected_rate = log_gene_base + log(theta*sample2_x[s]) * (1 - unknown_prop[s]) + other_log_contribution_per_gene * unknown_prop[s];
+        log_expected_rate = log_gene_base + log(theta*sample2_x[s]) * (1 - unknown_prop[s]) + other_log_contribution_per_gene[s] * unknown_prop[s];
         sample2_y[s] ~ neg_binomial_2_log(log_expected_rate, gene_phi);
     }
 }
