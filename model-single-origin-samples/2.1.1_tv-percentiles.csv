@@ -1,0 +1,161 @@
+sample_id,subset_type,tv_percentile
+1,B,100.0
+1,B CD5,0.0
+1,B Memory,100.0
+1,B Naive,0.0
+1,CD4 T,0.0
+1,CD4 Central Memory,0.0
+1,CD4 Effector Memory,0.0
+1,CD4 Naive,0.0
+1,CD4 Th1,0.0
+1,CD4 Th17,0.0
+1,CD4 Th2,0.0
+1,CD4 Treg,0.0
+1,CD8 T,0.0
+1,CD8 Central Memory,0.0
+1,CD8 Effector,0.0
+1,CD8 Naive,0.0
+2,B,100.0
+2,B CD5,0.0
+2,B Memory,99.97500000000001
+2,B Naive,0.05
+2,CD4 T,0.0
+2,CD4 Central Memory,0.0
+2,CD4 Effector Memory,0.0
+2,CD4 Naive,0.0
+2,CD4 Th1,0.0
+2,CD4 Th17,0.0
+2,CD4 Th2,0.0
+2,CD4 Treg,0.0
+2,CD8 T,0.0
+2,CD8 Central Memory,0.0
+2,CD8 Effector,0.0
+2,CD8 Naive,0.0
+3,B,100.0
+3,B CD5,0.0
+3,B Memory,100.0
+3,B Naive,0.0
+3,CD4 T,0.0
+3,CD4 Central Memory,0.0
+3,CD4 Effector Memory,0.0
+3,CD4 Naive,0.0
+3,CD4 Th1,0.0
+3,CD4 Th17,0.0
+3,CD4 Th2,0.0
+3,CD4 Treg,0.0
+3,CD8 T,0.0
+3,CD8 Central Memory,0.0
+3,CD8 Effector,0.0
+3,CD8 Naive,0.0
+4,B,100.0
+4,B CD5,0.0
+4,B Memory,100.0
+4,B Naive,0.0
+4,CD4 T,0.0
+4,CD4 Central Memory,0.0
+4,CD4 Effector Memory,0.0
+4,CD4 Naive,0.0
+4,CD4 Th1,0.0
+4,CD4 Th17,0.0
+4,CD4 Th2,0.0
+4,CD4 Treg,0.0
+4,CD8 T,0.0
+4,CD8 Central Memory,0.0
+4,CD8 Effector,0.0
+4,CD8 Naive,0.0
+5,B,100.0
+5,B CD5,0.0
+5,B Memory,100.0
+5,B Naive,0.0
+5,CD4 T,0.0
+5,CD4 Central Memory,0.0
+5,CD4 Effector Memory,0.0
+5,CD4 Naive,0.0
+5,CD4 Th1,0.0
+5,CD4 Th17,0.0
+5,CD4 Th2,0.0
+5,CD4 Treg,0.0
+5,CD8 T,0.0
+5,CD8 Central Memory,0.0
+5,CD8 Effector,0.0
+5,CD8 Naive,0.0
+6,B,100.0
+6,B CD5,0.0
+6,B Memory,0.22499999999999998
+6,B Naive,99.85000000000001
+6,CD4 T,0.0
+6,CD4 Central Memory,0.0
+6,CD4 Effector Memory,0.0
+6,CD4 Naive,0.0
+6,CD4 Th1,0.0
+6,CD4 Th17,0.0
+6,CD4 Th2,0.0
+6,CD4 Treg,0.0
+6,CD8 T,0.0
+6,CD8 Central Memory,0.0
+6,CD8 Effector,0.0
+6,CD8 Naive,0.0
+7,B,98.125
+7,B CD5,0.0
+7,B Memory,0.0
+7,B Naive,99.925
+7,CD4 T,12.925
+7,CD4 Central Memory,0.0
+7,CD4 Effector Memory,0.0
+7,CD4 Naive,0.0
+7,CD4 Th1,0.0
+7,CD4 Th17,0.0
+7,CD4 Th2,0.0
+7,CD4 Treg,88.125
+7,CD8 T,0.0
+7,CD8 Central Memory,0.0
+7,CD8 Effector,0.0
+7,CD8 Naive,0.0
+8,B,99.125
+8,B CD5,0.0
+8,B Memory,0.0
+8,B Naive,99.95
+8,CD4 T,9.45
+8,CD4 Central Memory,0.0
+8,CD4 Effector Memory,0.0
+8,CD4 Naive,0.0
+8,CD4 Th1,0.0
+8,CD4 Th17,0.0
+8,CD4 Th2,0.0
+8,CD4 Treg,89.575
+8,CD8 T,0.0
+8,CD8 Central Memory,0.0
+8,CD8 Effector,0.0
+8,CD8 Naive,0.0
+9,B,42.8
+9,B CD5,0.0
+9,B Memory,0.0
+9,B Naive,100.0
+9,CD4 T,75.925
+9,CD4 Central Memory,0.0
+9,CD4 Effector Memory,0.0
+9,CD4 Naive,0.0
+9,CD4 Th1,0.0
+9,CD4 Th17,0.0
+9,CD4 Th2,0.0
+9,CD4 Treg,99.875
+9,CD8 T,0.0
+9,CD8 Central Memory,0.0
+9,CD8 Effector,0.0
+9,CD8 Naive,0.0
+10,B,6.2
+10,B CD5,0.0
+10,B Memory,0.0
+10,B Naive,57.775
+10,CD4 T,97.52499999999999
+10,CD4 Central Memory,0.0
+10,CD4 Effector Memory,0.0
+10,CD4 Naive,0.0
+10,CD4 Th1,0.0
+10,CD4 Th17,0.0
+10,CD4 Th2,0.0
+10,CD4 Treg,100.0
+10,CD8 T,0.0
+10,CD8 Central Memory,0.0
+10,CD8 Effector,0.0
+10,CD8 Naive,0.0
