@@ -63,6 +63,9 @@ parameters {
 
     vector<lower=0, upper=1>[S2] unknown_prop; // proportion of each test sample that is of unknown cell type
     vector[G] other_log_contribution_per_gene[S2]; // for each test sample, per-transcript contribution of unknown cell type
+
+    vector<lower=0>[S] sample_variance;     // sample-specific variance scaling
+    vector<lower=0>[S2] sample2_variance;     // sample2-specific variance
 }
 transformed parameters {
     vector[M] theta_coefs[G];
@@ -85,10 +88,17 @@ model {
     // estimate sample_y: observed expression for a sample (possibly a mixture)
     log_gene_base ~ normal(0, 1);
     gene_phi ~ normal(0, 1);
+    sample_variance ~ normal(0, 1);
+    sample2_variance ~ normal(0, 1);
+
     for (s in 1:S) {
         vector[G] log_expected_rate;
         log_expected_rate = log_gene_base + log(theta*sample_x[s]);
-        sample_y[s] ~ neg_binomial_2_log(log_expected_rate, gene_phi);
+
+        vector<lower=0>[G] corrected_phis;
+        corrected_phis = gene_phi * sample_variance[s];
+
+        sample_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis);
     }
     
     // estimate sample2_y: observed expression for a sample of unknown composition
@@ -100,7 +110,11 @@ model {
         other_log_contribution_per_gene[s] ~ normal(0, 1);
         // TODO: use logmix() instead after `log_gene_base + ` in next line.
         log_expected_rate = log_gene_base + log(theta*sample2_x[s]) * (1 - unknown_prop[s]) + other_log_contribution_per_gene[s] * unknown_prop[s];
-        sample2_y[s] ~ neg_binomial_2_log(log_expected_rate, gene_phi);
+
+        vector<lower=0>[G] corrected_phis2;
+        corrected_phis2 = gene_phi * sample2_variance[s];
+
+        sample2_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis2);
     }
 }
 generated quantities {
