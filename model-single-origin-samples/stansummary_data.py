@@ -17,7 +17,7 @@ ROLLUPS = {
 }
 
 
-def get_trace_columns(parameter, stan_summary=STAN_SUMMARY):
+def get_trace_columns(parameter, stan_summary):
     cols_we_want = stan_summary[stan_summary.name.str.startswith(parameter)].name.values
     trace_columns = [c.replace('[', '.').replace(']', '').replace(',', '.') for c in cols_we_want]
     return trace_columns
