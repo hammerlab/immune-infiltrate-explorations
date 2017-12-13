@@ -82,15 +82,15 @@ transformed parameters {
         theta_coefs[g] = theta_coefs_raw + theta_coefs_per_gene[g];
 
     for (s in 1:S)
-        corrected_phis[s] = log_global_phi_scale + log_gene_phi + log_sample_scale[s] + log(celltype_scale * sample_x[s]) 
-    corrected_phis = exp(corrected_phis)
+        corrected_phis[s] = log_global_phi_scale + log_gene_phi + log_sample_scale[s] + log(celltype_scale * sample_x[s]);
+    corrected_phis = exp(corrected_phis);
 
     for (s in 1:S2)
-        corrected_phis2[s] = log_global_phi_scale + log_gene_phi + log_sample2_scale[s] + log(celltype_scale * sample_x[s]) 
-    corrected_phis2 = exp(corrected_phis2)
+        corrected_phis2[s] = log_global_phi_scale + log_gene_phi + log_sample2_scale[s] + log(celltype_scale * sample_x[s]);
+    corrected_phis2 = exp(corrected_phis2);
 
     for(g in 1:G)
-        ones = 1; // initialize a vector of all ones (for dirichlet prior)
+        ones[g] = 1; // initialize a vector of all ones (for dirichlet prior)
 }
 model {
     // estimate theta - gene-level expression per cell type, as a function of cell-surface expression proteins
@@ -111,12 +111,13 @@ model {
     log_gene_phi ~ dirichlet(ones);
     log_sample_scale ~ normal(0, 1);
     log_sample2_scale ~ normal(0, 1);
-    celltype_scale ~ normal(0, 1);
+    for(g in 1:G)
+        celltype_scale[g] ~ normal(0, 1);
 
     for (s in 1:S) {
         vector[G] log_expected_rate;
         log_expected_rate = log_gene_base + log(theta*sample_x[s]);
-        sample_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis);
+        sample_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis[s]);
     }
     
     // estimate sample2_y: observed expression for a sample of unknown composition
@@ -128,7 +129,7 @@ model {
         other_log_contribution_per_gene[s] ~ normal(0, 1);
         // TODO: use logmix() instead after `log_gene_base + ` in next line.
         log_expected_rate = log_gene_base + log(theta*sample2_x[s]) * (1 - unknown_prop[s]) + other_log_contribution_per_gene[s] * unknown_prop[s];
-        sample2_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis2);
+        sample2_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis2[s]);
     }
 }
 generated quantities {
@@ -142,7 +143,7 @@ generated quantities {
     for (n in 1:N) {
         real log_expected_rate;
         log_expected_rate = log_gene_base[gene[n]] + log(theta[gene[n], ]*x[n]);
-        y_rep[n] = neg_binomial_2_log_rng(log_expected_rate, corrected_phis[gene[n]]);
-        log_lik[n] = neg_binomial_2_log_lpmf(y[n] | log_expected_rate, corrected_phis[gene[n]]);
+        y_rep[n] = neg_binomial_2_log_rng(log_expected_rate, corrected_phis[sample[n]][gene[n]]);
+        log_lik[n] = neg_binomial_2_log_lpmf(y[n] | log_expected_rate, corrected_phis[sample[n]][gene[n]]);
     }
 }
