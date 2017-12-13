@@ -58,19 +58,39 @@ parameters {
     vector[M] theta_coefs_per_gene[G];
     
     vector[G] log_gene_base;     // constant intercept expression level for each gene, irrespective of cell type
-    vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
+    // vector<lower=0>[G] gene_phi; // overdispersion parameter per transcript (for now)
     simplex[C] sample2_x[S2];     // inferred sample2 compositions (simplex type enforces sum-to-one)
 
     vector<lower=0, upper=1>[S2] unknown_prop; // proportion of each test sample that is of unknown cell type
     vector[G] other_log_contribution_per_gene[S2]; // for each test sample, per-transcript contribution of unknown cell type
 
-    vector<lower=0>[S] sample_variance;     // sample-specific variance scaling
-    vector<lower=0>[S2] sample2_variance;     // sample2-specific variance
+    // hierarchical dispersion
+    real log_global_phi_scale;      // single global-scale value that doesn't vary by sample, gene, or cell type.
+    simplex[G] log_gene_phi;        // constant intercept overdispersion parameter per transcript. simplex solves identifiability problem
+    vector[S] log_sample_scale;     // sample-level variance
+    vector[S2] log_sample2_scale;   // sample2-level variance
+    matrix[G, C] celltype_scale;    // cell type-level variance (varies by transcript)
+
 }
 transformed parameters {
     vector[M] theta_coefs[G];
+    vector[G] corrected_phis[S];
+    vector[G] corrected_phis2[S2];
+    vector[G] ones;
+    
     for (g in 1:G) 
         theta_coefs[g] = theta_coefs_raw + theta_coefs_per_gene[g];
+
+    for (s in 1:S)
+        corrected_phis[s] = log_global_phi_scale + log_gene_phi + log_sample_scale[s] + log(celltype_scale * sample_x[s]) 
+    corrected_phis = exp(corrected_phis)
+
+    for (s in 1:S2)
+        corrected_phis2[s] = log_global_phi_scale + log_gene_phi + log_sample2_scale[s] + log(celltype_scale * sample_x[s]) 
+    corrected_phis2 = exp(corrected_phis2)
+
+    for(g in 1:G)
+        ones = 1; // initialize a vector of all ones (for dirichlet prior)
 }
 model {
     // estimate theta - gene-level expression per cell type, as a function of cell-surface expression proteins
@@ -87,17 +107,15 @@ model {
 
     // estimate sample_y: observed expression for a sample (possibly a mixture)
     log_gene_base ~ normal(0, 1);
-    gene_phi ~ normal(0, 1);
-    sample_variance ~ normal(0, 1);
-    sample2_variance ~ normal(0, 1);
+    log_global_phi_scale ~ cauchy(0,1); // fatter tails so that this can move more.
+    log_gene_phi ~ dirichlet(ones);
+    log_sample_scale ~ normal(0, 1);
+    log_sample2_scale ~ normal(0, 1);
+    celltype_scale ~ normal(0, 1);
 
     for (s in 1:S) {
         vector[G] log_expected_rate;
         log_expected_rate = log_gene_base + log(theta*sample_x[s]);
-
-        vector<lower=0>[G] corrected_phis;
-        corrected_phis = gene_phi * sample_variance[s];
-
         sample_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis);
     }
     
@@ -110,10 +128,6 @@ model {
         other_log_contribution_per_gene[s] ~ normal(0, 1);
         // TODO: use logmix() instead after `log_gene_base + ` in next line.
         log_expected_rate = log_gene_base + log(theta*sample2_x[s]) * (1 - unknown_prop[s]) + other_log_contribution_per_gene[s] * unknown_prop[s];
-
-        vector<lower=0>[G] corrected_phis2;
-        corrected_phis2 = gene_phi * sample2_variance[s];
-
         sample2_y[s] ~ neg_binomial_2_log(log_expected_rate, corrected_phis2);
     }
 }
@@ -128,7 +142,7 @@ generated quantities {
     for (n in 1:N) {
         real log_expected_rate;
         log_expected_rate = log_gene_base[gene[n]] + log(theta[gene[n], ]*x[n]);
-        y_rep[n] = neg_binomial_2_log_rng(log_expected_rate, gene_phi[gene[n]]);
-        log_lik[n] = neg_binomial_2_log_lpmf(y[n] | log_expected_rate, gene_phi[gene[n]]);
+        y_rep[n] = neg_binomial_2_log_rng(log_expected_rate, corrected_phis[gene[n]]);
+        log_lik[n] = neg_binomial_2_log_lpmf(y[n] | log_expected_rate, corrected_phis[gene[n]]);
     }
 }
