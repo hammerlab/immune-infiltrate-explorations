@@ -11,6 +11,7 @@ from cache import cached
 
 logger = logging.getLogger(__name__)
 
+# TODO: Remove Gcloud dependencies; update filepaths to reflect infino-docker
 def download(s, data_dir='./data'):
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)
